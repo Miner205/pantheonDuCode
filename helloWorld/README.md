@@ -17,5 +17,5 @@ Let's go apprendre l'assembleur :)
   - display avec pygame
 
 - instructions pour exécuter le projet :
-  - run en_python in your favorite python ide(pycharm, etc.)
+  - run main_python in your favorite python ide(pycharm, etc.)
   - or executable ?
