@@ -25,14 +25,16 @@ running = True
 
 started = 0
 
-interval = [randint(-499, 0), randint(1, 500)]
-mystery_number = randint(interval[0], interval[1])
+mystery_number = None
+min_i, max_i = None, None
+prev_min_i, prev_max_i = None, None
 
-all_textzone = {"answer_zone": TextZone(center[0]-150, center[1]-16, 300, "entrez un nombre", True),
+all_textzone = {"answer_zone": TextZone(center[0]-175, center[1]+32, 350, "entrez les bornes min/max", True, answer_mode=True),
                 "try_counter": TextZone(screen_width-400, 10, 390, "compteur d'essais", False, "0"),
                 "find_counter": TextZone(screen_width-400, 10+32+2, 390, "compteur de nombre trouvé", False, "0"),
-                "interval": TextZone(center[0]-150, center[1]-16-32-2, 300, "intervalle", False,
-                                     str(interval[0])+", "+str(interval[1]))}
+                "interval_min": TextZone(center[0]-150, center[1]-6-64, 300, "borne minimum", True),
+                "interval_max": TextZone(center[0]-150, center[1]-4-32, 300, "borne maximum", True),
+                "interval": TextZone(center[0]-150, center[1]-2, 300, "intervalle", False, "_, _")}
 
 wave_color = "black"
 
@@ -54,13 +56,38 @@ while running:
             pygame.quit()
 
         if event.type == pygame.MOUSEBUTTONDOWN or event.type == pygame.KEYDOWN:
+            all_textzone["interval_min"].use(event)
+            all_textzone["interval_max"].use(event)
+            if all_textzone["interval_min"].user_text != "" and all_textzone["interval_min"].user_text != "-":
+                min_i = int(all_textzone["interval_min"].user_text)
+            else:
+                min_i = None
+            if all_textzone["interval_max"].user_text != "" and all_textzone["interval_max"].user_text != "-":
+                max_i = int(all_textzone["interval_max"].user_text)
+            else:
+                max_i = None
+            if max_i is not None and min_i is not None:
+                if max_i < min_i:
+                    all_textzone["interval_max"].user_text, all_textzone["interval_min"].user_text = all_textzone["interval_min"].user_text, all_textzone["interval_max"].user_text
+                    max_i, min_i = min_i, max_i
+                if mystery_number is None or prev_min_i != min_i or prev_max_i != max_i:
+                    prev_max_i, prev_min_i = max_i, min_i
+                    mystery_number = randint(min_i, max_i)
+                    all_textzone["answer_zone"].name = "entrez un nombre"
+                    all_textzone["try_counter"].user_text = "0"
+                    all_textzone["interval"].user_text = str(min_i)+", "+str(max_i)
+            else:
+                mystery_number = None
+                all_textzone["answer_zone"].name = "entrez les bornes min/max"
+                all_textzone["interval"].user_text = "_, _"
+
             answer = all_textzone["answer_zone"].use(event, mystery_number)
             if answer == 1:
                 started = current_time
                 wave_color = "red"
                 more_sound.play()
                 tmp = list(all_textzone["try_counter"].user_text)
-                tmp[len(tmp)-1] = str(int(tmp[len(tmp) - 1])+1)
+                tmp[len(tmp) - 1] = str(int(tmp[len(tmp) - 1]) + 1)
                 all_textzone["try_counter"].user_text = "".join(tmp)
 
             elif answer == -1:
@@ -75,9 +102,7 @@ while running:
                 started = current_time
                 wave_color = "green"
                 find_sound.play()
-                interval = [randint(-499, 0), randint(1, 500)]
-                mystery_number = randint(interval[0], interval[1])
-                all_textzone["interval"].user_text = str(interval[0])+", "+str(interval[1])
+                mystery_number = randint(min_i, max_i)
                 all_textzone["try_counter"].user_text = "0"
                 tmp = list(all_textzone["find_counter"].user_text)
                 tmp[len(tmp) - 1] = str(int(tmp[len(tmp) - 1]) + 1)

@@ -2,7 +2,7 @@ import pygame
 
 
 class TextZone:
-    def __init__(self, x, y, width, name, editing=True, starter_txt=""):
+    def __init__(self, x, y, width, name, editing=True, starter_txt="", answer_mode=False):
         super().__init__()
         self.text_font = pygame.font.Font(None, 32)
         self.name = name
@@ -10,8 +10,9 @@ class TextZone:
         self.rect = pygame.Rect(x, y, width, 32)
         self.active = False
         self.editing = editing
+        self.answer_mode = answer_mode
 
-    def use(self, event, mystery_number):
+    def use(self, event, mystery_number=None):
 
         if self.editing and event.type == pygame.MOUSEBUTTONDOWN:
             if self.rect.collidepoint(event.pos):
@@ -27,8 +28,10 @@ class TextZone:
             if self.active:
                 if event.key == pygame.K_BACKSPACE:
                     self.user_text = self.user_text[:-1]
-                elif event.key == pygame.K_RETURN and len(self.user_text) != 0:
-                    if mystery_number == int(self.user_text):
+                elif self.answer_mode and event.key == pygame.K_RETURN and len(self.user_text) != 0:
+                    if mystery_number is None:
+                        self.name = "entrez les bornes min/max"
+                    elif mystery_number == int(self.user_text):
                         self.user_text = ""
                         self.name = "entrez un nombre"
                         return 0
@@ -52,5 +55,8 @@ class TextZone:
         else:
             pygame.draw.rect(screen, (255, 255, 255), self.rect, border_radius=3)
             pygame.draw.rect(screen, (0, 0, 0), self.rect, 2, 3)
-        text_surface = self.text_font.render(self.name+" : "+self.user_text, True, (0, 0, 0))
+        if self.answer_mode:
+            text_surface = self.text_font.render(self.name + " : " + self.user_text, True, (180, 0, 0))
+        else:
+            text_surface = self.text_font.render(self.name+" : "+self.user_text, True, (0, 0, 0))
         screen.blit(text_surface, (self.rect.x + 5, self.rect.y + 5))
