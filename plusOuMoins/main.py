@@ -27,7 +27,6 @@ started = 0
 
 mystery_number = None
 min_i, max_i = None, None
-prev_min_i, prev_max_i = None, None
 
 all_textzone = {"answer_zone": TextZone(center[0]-175, center[1]+32, 350, "entrez les bornes min/max", True, answer_mode=True),
                 "try_counter": TextZone(screen_width-400, 10, 390, "compteur d'essais", False, "0"),
@@ -66,12 +65,12 @@ while running:
                 max_i = int(all_textzone["interval_max"].user_text)
             else:
                 max_i = None
+
             if max_i is not None and min_i is not None:
-                if max_i < min_i:
-                    all_textzone["interval_max"].user_text, all_textzone["interval_min"].user_text = all_textzone["interval_min"].user_text, all_textzone["interval_max"].user_text
-                    max_i, min_i = min_i, max_i
-                if mystery_number is None or prev_min_i != min_i or prev_max_i != max_i:
-                    prev_max_i, prev_min_i = max_i, min_i
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN and (all_textzone["interval_min"].active or all_textzone["interval_max"].active):
+                    if max_i < min_i:
+                        all_textzone["interval_max"].user_text, all_textzone["interval_min"].user_text = all_textzone["interval_min"].user_text, all_textzone["interval_max"].user_text
+                        max_i, min_i = min_i, max_i
                     mystery_number = randint(min_i, max_i)
                     all_textzone["answer_zone"].name = "entrez un nombre"
                     all_textzone["try_counter"].user_text = "0"
