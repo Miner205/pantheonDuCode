@@ -1,5 +1,5 @@
 # pantheonDuCode
-https://poc.onepantheon.fr/html/rules.html
+https://poc.onepantheon.fr/html/defi.html
 
 # Afficher Hello World
 
