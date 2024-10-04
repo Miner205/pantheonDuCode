@@ -7,11 +7,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="47d77bdf-66df-4a54-9212-33e3b682341b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../plusOuMoins/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../plusOuMoins/functions.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../plusOuMoins/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../plusOuMoins/textzone.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_python.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_python.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jeuDeLaVie/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../jeuDeLaVie/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jeuDeLaVie/functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/../jeuDeLaVie/functions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jeuDeLaVie/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/../jeuDeLaVie/game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jeuDeLaVie/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../jeuDeLaVie/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,6 +91,7 @@
       <workItem from="1727872095931" duration="176000" />
       <workItem from="1727880796550" duration="178000" />
       <workItem from="1727881695386" duration="26000" />
+      <workItem from="1728080715415" duration="55000" />
     </task>
     <servers />
   </component>
@@ -99,6 +100,6 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/helloWorld$fct_python.coverage" NAME="fct_python Coverage Results" MODIFIED="1727872150165" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/helloWorld$main_python.coverage" NAME="main_python Coverage Results" MODIFIED="1727872250929" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/helloWorld$main_python.coverage" NAME="main_python Coverage Results" MODIFIED="1728080749866" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>

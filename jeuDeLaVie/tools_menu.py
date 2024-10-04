@@ -36,11 +36,12 @@ class ToolsMenu:
                     if self.which_submenu[0] == '0':
                         self.all_textzone.clear()
                 else:
-                    self.which_submenu.append(button[0])
                     if button == "1Creation":
                         self.which_submenu[0] = '2'
+                        self.which_submenu.append(button[0])
                     elif button == "1Save_Load":
                         self.which_submenu[0] = '3'
+                        self.which_submenu.append(button[0])
 
         for button in self.all_button.keys():
             if self.which_submenu[0] == '0' or (button != "back" and button[0] != self.which_submenu[0]):

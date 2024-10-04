@@ -7,6 +7,7 @@ pygame.init()
 
 w, h = pygame.display.get_desktop_sizes()[0]
 w, h = w-100, h-100
+pygame.display.set_caption("Funny Hello World")
 screen = pygame.display.set_mode((w, h))
 clock = pygame.time.Clock()
 running = True

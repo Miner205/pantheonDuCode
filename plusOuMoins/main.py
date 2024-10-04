@@ -11,6 +11,7 @@ clock = pygame.time.Clock()
 FPS = 60
 
 # Create a window
+pygame.display.set_caption("Jeu plus ou moins")
 screen_width, screen_height = 720, 520
 center = (screen_width//2, screen_height//2)
 screen = pygame.display.set_mode((screen_width, screen_height))

@@ -7,9 +7,8 @@ https://poc.onepantheon.fr/html/defi.html
 
 - fonctionnement du code :
   - display avec pygame
-  - 
-
-note for me : réutiliser quadrillage et zoom et slide transports en communs.
+  - functionalities :
+    - trucs .. 
 
 - instructions pour exécuter le projet :
   - run main.py dans votre IDE python (pycharm, vscode, etc.) ; [comment créait-on un exécutable ?].
