@@ -10,7 +10,7 @@ class ToolsMenu:
         # ; if num_submenu[0] == '0' : del/reset ToolsMenu
         self.width = 15*10
         self.height = 32
-        self.nb_of_submenu = 4
+        self.nb_of_submenu = 3
         self.border_margin = 5
         self.rect = pygame.Rect(x, y, self.width+self.border_margin*2, self.height*self.nb_of_submenu+self.border_margin*2)
         self.all_button = {}
@@ -59,14 +59,12 @@ class ToolsMenu:
                 del (self.all_textzone[elt])
             self.textzone_to_del.clear()
 
-        if self.which_submenu[0] == '1' and "1Erase" not in self.all_button.keys():
-            self.all_button["1Erase"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin, self.width, self.height)
-            self.all_button["1Creation"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+32, self.width, self.height)
-            self.all_button["1Save_Load"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+32*2, self.width, self.height)
-            self.all_textzone["1Erase"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin, self.width, False, "Delete all cells")
-            self.all_textzone["1Creation"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+32, self.width, False, "pré-concu")
-            self.all_textzone["1Save_Load"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+32*2, self.width, False, "Save&Load map")
-            self.nb_of_submenu = 4
+        if self.which_submenu[0] == '1' and "1Creation" not in self.all_button.keys():
+            self.all_button["1Creation"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin, self.width, self.height)
+            self.all_button["1Save_Load"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+32, self.width, self.height)
+            self.all_textzone["1Creation"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin, self.width, False, "pré-concu")
+            self.all_textzone["1Save_Load"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+32, self.width, False, "Save&Load map")
+            self.nb_of_submenu = 3
 
         if self.which_submenu[0] == '2' and "2Overlays" not in self.all_button.keys():
 

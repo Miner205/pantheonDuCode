@@ -32,7 +32,7 @@ zoom = 1.0
 zoom_button = Button(screen_width-20-41*2-3, 20, 41, 41)
 dezoom_button = Button(screen_width-20-41, 20, 41, 41)
 
-go_to_center_button = Button(screen_width-20-21-6, 20+47, 27, 27)
+go_to_center_button = Button(screen_width-20-27, 20+47, 27, 27)
 
 game = Game((nb_of_cells, nb_of_cells), cell_size, screen_width, screen_height)
 
@@ -77,8 +77,22 @@ while running:
                 game.x_slide, game.y_slide = 0, 0
 
             if not (zoom_button.rect.collidepoint(event.pos) or dezoom_button.rect.collidepoint(event.pos) or
-                    go_to_center_button.rect.collidepoint(event.pos) or (tools_menu.which_submenu[0] != '0' and tools_menu.rect.collidepoint(event.pos))):
+                    go_to_center_button.rect.collidepoint(event.pos) or (tools_menu.which_submenu[0] != '0' and tools_menu.rect.collidepoint(event.pos))
+                    or game.grille_button.rect.collidepoint(event.pos) or game.reset_button.rect.collidepoint(event.pos)
+                    or game.play_pause_button.rect.collidepoint(event.pos) or game.next_button.rect.collidepoint(event.pos)):
                 game.update(event, zoom)
+
+            if game.grille_button.use(event):
+                game.mode_grille += 1
+                if game.mode_grille >= 3:
+                    game.mode_grille = 0
+            if game.reset_button.use(event):
+                game.empty_map()
+                game.iteration = 0
+            if game.play_pause_button.use(event):
+                game.play_pause_button_state = not game.play_pause_button_state
+            if game.next_button.use(event):
+                game.next_iteration()
 
             tools_menu.update(event)
 
@@ -96,7 +110,7 @@ while running:
 
         # print the current time :
         font = pygame.font.SysFont("ArialBlack", 20)
-        text = font.render('Time : {} s'.format(current_time), True, (0, 0, 0))
+        text = font.render('Time : {} s'.format(current_time), True, (150, 0, 0))
         screen.blit(text, (10, 5))
 
         # print zoom/dezoom buttons :
