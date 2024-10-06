@@ -48,7 +48,7 @@ class ToolsMenu:
         for button in self.all_button.keys():
             if self.all_button[button].use(event):
 
-                if button == "7R_pentomino":  # change size of screen & map if needed
+                if button == "7R_pentomino" or button == "9aSmoker" or button == "9aTruc" or button == "9Max":  # change size of screen & map if needed
                     nb_of_cells = 200
                     cell_size = 4
                     self.game.iteration = 0
@@ -60,7 +60,7 @@ class ToolsMenu:
                     self.game.s_w, self.game.s_h = self.screen_width, self.screen_height
                     self.game.empty_map()
                 elif self.game.s_w != 100*(8+1) and button != "back" and (self.which_submenu[0] == "4" or self.which_submenu[0] == "5" or self.which_submenu[0] == "6"
-                                                                          or self.which_submenu[0] == '7'):
+                                                                          or self.which_submenu[0] == '7' or self.which_submenu[0] == '8' or self.which_submenu[0] == '9'):
                     nb_of_cells = 100
                     cell_size = 8
                     self.game.iteration = 0
@@ -103,11 +103,26 @@ class ToolsMenu:
                         self.which_submenu.append(button[0])
                     elif button[0] == "5":
                         self.game.load_map("pré_concus/oscillateurs/"+self.all_textzone[button].user_text)
+                    elif button == "2Vaisseaux":
+                        self.which_submenu[0] = '6'
+                        self.which_submenu.append(button[0])
+                    elif button[0] == "6":
+                        self.game.load_map("pré_concus/vaisseaux/"+self.all_textzone[button].user_text)
                     elif button == "2Mathusalems":
                         self.which_submenu[0] = '7'
                         self.which_submenu.append(button[0])
                     elif button[0] == "7":
                         self.game.load_map("pré_concus/mathusalems/"+self.all_textzone[button].user_text)
+                    elif button == "2Canons":
+                        self.which_submenu[0] = '8'
+                        self.which_submenu.append(button[0])
+                    elif button[0] == "8":
+                        self.game.load_map("pré_concus/canons/"+self.all_textzone[button].user_text)
+                    elif button == "2Autres":
+                        self.which_submenu[0] = '9'
+                        self.which_submenu.append(button[0])
+                    elif button[0] == "9":
+                        self.game.load_map("pré_concus/autres/"+self.all_textzone[button].user_text)
                     elif button == "1CentCells":
                         nb_of_cells = 100
                         cell_size = 8
@@ -130,9 +145,9 @@ class ToolsMenu:
                         self.game.s_w, self.game.s_h = self.screen_width, self.screen_height
                         self.game.empty_map()
 
-                if self.game.s_w != 100*(8+1) and button != "7R_pentomino" and (
+                if self.game.s_w != 100*(8+1) and button != "7R_pentomino" and button != "9aSmoker" and button != "9aTruc" and button != "9Max" and (
                         self.which_submenu[0] == "4" or self.which_submenu[0] == "5" or self.which_submenu[0] == "6" or
-                        self.which_submenu[0] == '7'):  # change size of screen & map if needed
+                        self.which_submenu[0] == '7' or self.which_submenu[0] == '8' or self.which_submenu[0] == '9'):  # change size of screen & map if needed
                     nb_of_cells = 100
                     cell_size = 8
                     self.game.iteration = 0
@@ -188,11 +203,15 @@ class ToolsMenu:
             self.all_textzone["2Structure_stable"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin, self.width, False, "Structures stables/Still lifes")
             self.all_button["2Oscillateurs"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height, self.width, self.height)
             self.all_textzone["2Oscillateurs"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height, self.width, False, "Oscillateurs/Oscillators")
-
+            self.all_button["2Vaisseaux"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*2, self.width, self.height)
+            self.all_textzone["2Vaisseaux"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*2, self.width, False, "Vaisseaux/Spaceships")
             self.all_button["2Mathusalems"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*3, self.width, self.height)
             self.all_textzone["2Mathusalems"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*3, self.width, False, "Mathusalems/Methuselahs")
-
-            self.nb_of_submenu = 5
+            self.all_button["2Canons"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*4, self.width, self.height)
+            self.all_textzone["2Canons"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*4, self.width, False, "Canons/Guns")
+            self.all_button["2Autres"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*5, self.width, self.height)
+            self.all_textzone["2Autres"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*5, self.width, False, "Autres")
+            self.nb_of_submenu = 7
 
         if self.which_submenu[0] == '3' and "3filename" not in self.all_textzone.keys():
             self.all_textzone["3filename"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin, self.width, True, "mymap", "txt name")
@@ -215,12 +234,14 @@ class ToolsMenu:
             self.all_textzone["4Loaf"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*4, self.width, False, "loaf")
             self.all_button["4Pond"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*5, self.width, self.height)
             self.all_textzone["4Pond"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*5, self.width, False, "pond")
-            self.all_button["4Honey_farm"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*6, self.width, self.height)
-            self.all_textzone["4Honey_farm"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*6, self.width, False, "honey farm (4 beehives)")
-            self.all_button["4Blocks"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*7, self.width, self.height)
-            self.all_textzone["4Blocks"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*7, self.width, False, "4 blocks")
+            self.all_button["4Cthulhu"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*6, self.width, self.height)
+            self.all_textzone["4Cthulhu"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*6, self.width, False, "cthulhu")
+            self.all_button["4Honey_farm"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*7, self.width, self.height)
+            self.all_textzone["4Honey_farm"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*7, self.width, False, "honey farm (4 beehives)")
+            self.all_button["4Blocks"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*8, self.width, self.height)
+            self.all_textzone["4Blocks"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*8, self.width, False, "4 blocks")
 
-            self.nb_of_submenu = 9
+            self.nb_of_submenu = 10
 
         if self.which_submenu[0] == '5' and "5Blinker" not in self.all_button.keys():
             self.all_button["5Blinker"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin, self.width, self.height)
@@ -231,15 +252,53 @@ class ToolsMenu:
             self.all_textzone["5Beacon"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*2, self.width, False, "beacon (period 2)")
             self.all_button["5Toad"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*3, self.width, self.height)
             self.all_textzone["5Toad"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*3, self.width, False, "toad (period 2)")
+            self.all_button["5Pulsar"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*4, self.width, self.height)
+            self.all_textzone["5Pulsar"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*4, self.width, False, "pulsar (period 3)")
+            self.all_button["5PentaD"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*5, self.width, self.height)
+            self.all_textzone["5PentaD"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*5, self.width, False, "penta-decathlon (period 15)")
+            self.all_button["5big_one"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*6, self.width, self.height)
+            self.all_textzone["5big_one"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*6, self.width, False, "period 177")
+
+            self.nb_of_submenu = 8
+
+        if self.which_submenu[0] == '6' and "6Glider" not in self.all_button.keys():
+            self.all_button["6Glider"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin, self.width, self.height)
+            self.all_textzone["6Glider"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin, self.width, False, "glider")
+            self.all_button["6Weight_spaceship"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height, self.width, self.height)
+            self.all_textzone["6Weight_spaceship"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height, self.width, False, "light, middle and heavy weight_spaceships")
+            self.all_button["6Canada_goose"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*2, self.width, self.height)
+            self.all_textzone["6Canada_goose"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*2, self.width, False, "canada goose")
+            self.all_button["6Papillon"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*3, self.width, self.height)
+            self.all_textzone["6Papillon"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*3, self.width, False, "60P5H2V0")
 
             self.nb_of_submenu = 5
-
 
         if self.which_submenu[0] == '7' and "7R_pentomino" not in self.all_button.keys():
             self.all_button["7R_pentomino"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin, self.width, self.height)
             self.all_textzone["7R_pentomino"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin, self.width, False, "the R-pentomino")
 
             self.nb_of_submenu = 2
+
+        if self.which_submenu[0] == '8' and "9Gosper_glider_gun" not in self.all_button.keys():
+            self.all_button["8Gosper_glider_gun"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin, self.width, self.height)
+            self.all_textzone["8Gosper_glider_gun"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin, self.width, False, "Gosper glider gun")
+
+            self.nb_of_submenu = 2
+
+        if self.which_submenu[0] == '9' and "9aSmoker" not in self.all_button.keys():
+            self.all_button["9aSmoker"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin, self.width, self.height)
+            self.all_textzone["9aSmoker"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin, self.width, False, "a smoker")
+            self.all_button["9aeSmoker"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height, self.width, self.height)
+            self.all_textzone["9aeSmoker"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height, self.width, False, "an ecological smoker")
+            # cf https://www.youtube.com/watch?v=S-W0NX97DB0 à 9min
+            self.all_button["9aRake"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*2, self.width, self.height)
+            self.all_textzone["9aRake"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*2, self.width, False, "a rake")  # to implement
+            self.all_button["9aTruc"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*3, self.width, self.height)
+            self.all_textzone["9aTruc"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*3, self.width, False, "a single block-laying switch engine")
+            self.all_button["9Max"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*4, self.width, self.height)
+            self.all_textzone["9Max"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*4, self.width, False, "a spacefiller (Max)")
+
+            self.nb_of_submenu = 6
 
         if self.which_submenu[0] != '0':
             self.all_button["back"] = Button(self.rect.x + self.border_margin,
@@ -254,7 +313,10 @@ class ToolsMenu:
             lens = []
             for textzone in self.all_textzone.keys():
                 if textzone not in self.textzone_to_del:
-                    lens.append(len(self.all_textzone[textzone].user_text)+len(self.all_textzone[textzone].name)-3)
+                    if len(self.all_textzone[textzone].user_text) < 24:
+                        lens.append(len(self.all_textzone[textzone].user_text)+len(self.all_textzone[textzone].name)-1)
+                    else:
+                        lens.append(len(self.all_textzone[textzone].user_text)-7)
             for toggle in self.all_toggle.keys():
                 if toggle not in self.toggle_to_del:
                     lens.append(len(self.all_toggle[toggle].name)-3)

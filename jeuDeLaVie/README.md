@@ -2,11 +2,13 @@
 https://poc.onepantheon.fr/html/defi.html
 
 # Jeu de la vie
-- règles : 
+- règles/wikis : 
   - https://fr.wikipedia.org/wiki/Jeu_de_la_vie
   - https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
+  - https://conwaylife.com/wiki
+  - https://conwaylife.com/wiki/Spaceship
 - vidéos :
-  - https://www.youtube.com/watch?v=S-W0NX97DB0
+  - https://www.youtube.com/watch?v=S-W0NX97DB0 ((fractal à 16m15s))
   - https://www.youtube.com/watch?v=eMn43As24Bo
 
 
