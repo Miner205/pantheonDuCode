@@ -59,7 +59,7 @@ class ToolsMenu:
                     self.game.map_size, self.game.cell_size = (nb_of_cells, nb_of_cells), cell_size
                     self.game.s_w, self.game.s_h = self.screen_width, self.screen_height
                     self.game.empty_map()
-                elif self.game.s_w != 100*(8+1) and button != "back" and (self.which_submenu[0] == "4" or self.which_submenu[0] == "5" or self.which_submenu[0] == "6"
+                elif self.game.map_size != (100, 100) and button != "back" and (self.which_submenu[0] == "4" or self.which_submenu[0] == "5" or self.which_submenu[0] == "6"
                                                                           or self.which_submenu[0] == '7' or self.which_submenu[0] == '8' or self.which_submenu[0] == '9'):
                     nb_of_cells = 100
                     cell_size = 8
@@ -84,15 +84,15 @@ class ToolsMenu:
                         self.which_submenu[0] = '3'
                         self.which_submenu.append(button[0])
                     elif button == "3Save":
-                        if self.screen_width == 100*(8+1):
-                            self.game.save_map("vos_créations/"+self.all_textzone["3filename"].user_text+"100")
-                        else:
-                            self.game.save_map("vos_créations/"+self.all_textzone["3filename"].user_text+"200")
+                        if self.game.map_size == (100, 100):
+                            self.game.save_map("vos_créations/"+self.all_textzone["3filename"].user_text+"_100x100")
+                        elif self.game.map_size == (200, 200):
+                            self.game.save_map("vos_créations/"+self.all_textzone["3filename"].user_text+"_200x200")
                     elif button == "3Load":
-                        if self.screen_width == 100*(8+1):
-                            self.game.load_map("vos_créations/"+self.all_textzone["3filename"].user_text+"100")
-                        else:
-                            self.game.load_map("vos_créations/"+self.all_textzone["3filename"].user_text+"200")
+                        if self.game.map_size == (100, 100):
+                            self.game.load_map("vos_créations/"+self.all_textzone["3filename"].user_text+"_100x100")
+                        elif self.game.map_size == (200, 200):
+                            self.game.load_map("vos_créations/"+self.all_textzone["3filename"].user_text+"_200x200")
                     elif button == "2Structure_stable":
                         self.which_submenu[0] = '4'
                         self.which_submenu.append(button[0])
@@ -144,8 +144,10 @@ class ToolsMenu:
                         self.game.map_size, self.game.cell_size = (nb_of_cells, nb_of_cells), cell_size
                         self.game.s_w, self.game.s_h = self.screen_width, self.screen_height
                         self.game.empty_map()
+                    elif button == "1CinqCentCells":
+                        print("hello, it's WIP")
 
-                if self.game.s_w != 100*(8+1) and button != "7R_pentomino" and button != "9aSmoker" and button != "9aTruc" and button != "9Max" and (
+                if self.game.map_size != (100, 100) and button != "7R_pentomino" and button != "9aSmoker" and button != "9aTruc" and button != "9Max" and (
                         self.which_submenu[0] == "4" or self.which_submenu[0] == "5" or self.which_submenu[0] == "6" or
                         self.which_submenu[0] == '7' or self.which_submenu[0] == '8' or self.which_submenu[0] == '9'):  # change size of screen & map if needed
                     nb_of_cells = 100
@@ -196,7 +198,9 @@ class ToolsMenu:
             self.all_textzone["1CentCells"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*3, self.width, False, "map = 100*100")
             self.all_button["1DeuxCentCells"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*4, self.width, self.height)
             self.all_textzone["1DeuxCentCells"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*4, self.width, False, "map = 200*200")
-            self.nb_of_submenu = 6
+            self.all_button["1CinqCentCells"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*5, self.width, self.height)
+            self.all_textzone["1CinqCentCells"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*5, self.width, False, "map = 500*500 (WIP)")
+            self.nb_of_submenu = 7
 
         if self.which_submenu[0] == '2' and "2Structure_stable" not in self.all_button.keys():
             self.all_button["2Structure_stable"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin, self.width, self.height)

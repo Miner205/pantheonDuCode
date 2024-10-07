@@ -1,16 +1,15 @@
 # pantheonDuCode
 https://poc.onepantheon.fr/html/defi.html
 
-# Jeu d'échecs
+# LPCC
 - règles : .
-- vidéos : 
-  - https://www.youtube.com/watch?v=GkS9RUi_UcQ
 
+to cf : https://www.youtube.com/results?search_query=algo+Dijktra+et+A*
 
 - fonctionnement du code :
-  - en C?? ; pygame
+  -
   - 
 
 
 - instructions pour exécuter le projet :
-  - run main.py dans votre IDE C (CLion, vscode, etc.).
+  - run main.py dans votre IDE .. (vscode, etc.).
