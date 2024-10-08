@@ -21,8 +21,8 @@ class Game:
         self.grille_button = Button(screen_w-20-41*2-3, 67, 27, 27)
         self.mode_grille = 1
 
-        #self.numbers_button =
-        #self.mode_numbers = 1
+        self.numbers_button = Button(screen_w-20-27*2-2, 67, 27, 27)
+        self.mode_numbers = 1
 
         self.reset_button = Button(10, 80, 31, 31)
         self.next_button = Button(10+93+9, 80, 31, 31)
@@ -83,35 +83,63 @@ class Game:
     def print(self, screen, zoom):
 
         # print grille/quadrillage
-        for x in range(self.s_w//2+int(self.x_slide), -1, int(-(self.cell_size+1)*zoom)):
-            if self.mode_grille == 1:
-                pygame.draw.line(screen, (0, 0, 0), (x, 0), (x, self.s_h), int(1*zoom))
-            for y in range(self.s_h//2+int(self.y_slide), -1, int(-(self.cell_size+1)*zoom)):
+        if self.mode_grille == 1 or self.mode_grille == 2:
+            for x in range(self.s_w//2+int(self.x_slide), -1, int(-(self.cell_size+1)*zoom)):
                 if self.mode_grille == 1:
-                    pygame.draw.line(screen, (0, 0, 0), (0, y), (self.s_w, y), int(1*zoom))
-                elif self.mode_grille == 2:
-                    pygame.draw.circle(screen, (0, 0, 0), (x, y), int(1*zoom))
-            for y in range(self.s_h//2+int(self.y_slide), self.s_h+1, int((self.cell_size+1)*zoom)):
+                    pygame.draw.line(screen, (0, 0, 0), (x, 0), (x, self.s_h), int(1*zoom))
+                for y in range(self.s_h//2+int(self.y_slide), -1, int(-(self.cell_size+1)*zoom)):
+                    if self.mode_grille == 1:
+                        pygame.draw.line(screen, (0, 0, 0), (0, y), (self.s_w, y), int(1*zoom))
+                    elif self.mode_grille == 2:
+                        pygame.draw.circle(screen, (0, 0, 0), (x, y), int(1*zoom))
+                for y in range(self.s_h//2+int(self.y_slide), self.s_h+1, int((self.cell_size+1)*zoom)):
+                    if self.mode_grille == 1:
+                        pygame.draw.line(screen, (0, 0, 0), (0, y), (self.s_w, y), int(1*zoom))
+                    elif self.mode_grille == 2:
+                        pygame.draw.circle(screen, (0, 0, 0), (x, y), int(1*zoom))
+            for x in range(self.s_w//2+int(self.x_slide), self.s_w+1, int((self.cell_size+1)*zoom)):
                 if self.mode_grille == 1:
-                    pygame.draw.line(screen, (0, 0, 0), (0, y), (self.s_w, y), int(1*zoom))
-                elif self.mode_grille == 2:
-                    pygame.draw.circle(screen, (0, 0, 0), (x, y), int(1*zoom))
-        for x in range(self.s_w//2+int(self.x_slide), self.s_w+1, int((self.cell_size+1)*zoom)):
-            if self.mode_grille == 1:
-                pygame.draw.line(screen, (0, 0, 0), (x, 0), (x, self.s_h), int(1*zoom))
-            for y in range(self.s_h//2+int(self.y_slide), -1, int(-(self.cell_size+1)*zoom)):
-                if self.mode_grille == 1:
-                    pygame.draw.line(screen, (0, 0, 0), (0, y), (self.s_w, y), int(1*zoom))
-                elif self.mode_grille == 2:
-                    pygame.draw.circle(screen, (0, 0, 0), (x, y), int(1*zoom))
-            for y in range(self.s_h//2+int(self.y_slide), self.s_h+1, int((self.cell_size+1)*zoom)):
-                if self.mode_grille == 1:
-                    pygame.draw.line(screen, (0, 0, 0), (0, y), (self.s_w, y), int(1*zoom))
-                elif self.mode_grille == 2:
-                    pygame.draw.circle(screen, (0, 0, 0), (x, y), int(1*zoom))
+                    pygame.draw.line(screen, (0, 0, 0), (x, 0), (x, self.s_h), int(1*zoom))
+                for y in range(self.s_h//2+int(self.y_slide), -1, int(-(self.cell_size+1)*zoom)):
+                    if self.mode_grille == 1:
+                        pygame.draw.line(screen, (0, 0, 0), (0, y), (self.s_w, y), int(1*zoom))
+                    elif self.mode_grille == 2:
+                        pygame.draw.circle(screen, (0, 0, 0), (x, y), int(1*zoom))
+                for y in range(self.s_h//2+int(self.y_slide), self.s_h+1, int((self.cell_size+1)*zoom)):
+                    if self.mode_grille == 1:
+                        pygame.draw.line(screen, (0, 0, 0), (0, y), (self.s_w, y), int(1*zoom))
+                    elif self.mode_grille == 2:
+                        pygame.draw.circle(screen, (0, 0, 0), (x, y), int(1*zoom))
+        elif self.mode_grille == 3 or self.mode_grille == 4:
+            for x in range(self.s_w//2+int(self.x_slide), -1, int(-(self.cell_size+1)*zoom)*5):
+                if self.mode_grille == 3:
+                    pygame.draw.line(screen, (0, 0, 0), (x, 0), (x, self.s_h), int(1*zoom))
+                for y in range(self.s_h//2+int(self.y_slide), -1, int(-(self.cell_size+1)*zoom)*5):
+                    if self.mode_grille == 3:
+                        pygame.draw.line(screen, (0, 0, 0), (0, y), (self.s_w, y), int(1*zoom))
+                    elif self.mode_grille == 4:
+                        pygame.draw.circle(screen, (0, 0, 0), (x, y), int(1*zoom))
+                for y in range(self.s_h//2+int(self.y_slide), self.s_h+1, int((self.cell_size+1)*zoom)*5):
+                    if self.mode_grille == 3:
+                        pygame.draw.line(screen, (0, 0, 0), (0, y), (self.s_w, y), int(1*zoom))
+                    elif self.mode_grille == 4:
+                        pygame.draw.circle(screen, (0, 0, 0), (x, y), int(1*zoom))
+            for x in range(self.s_w//2+int(self.x_slide), self.s_w+1, int((self.cell_size+1)*zoom)*5):
+                if self.mode_grille == 3:
+                    pygame.draw.line(screen, (0, 0, 0), (x, 0), (x, self.s_h), int(1*zoom))
+                for y in range(self.s_h//2+int(self.y_slide), -1, int(-(self.cell_size+1)*zoom)*5):
+                    if self.mode_grille == 3:
+                        pygame.draw.line(screen, (0, 0, 0), (0, y), (self.s_w, y), int(1*zoom))
+                    elif self.mode_grille == 4:
+                        pygame.draw.circle(screen, (0, 0, 0), (x, y), int(1*zoom))
+                for y in range(self.s_h//2+int(self.y_slide), self.s_h+1, int((self.cell_size+1)*zoom)*5):
+                    if self.mode_grille == 3:
+                        pygame.draw.line(screen, (0, 0, 0), (0, y), (self.s_w, y), int(1*zoom))
+                    elif self.mode_grille == 4:
+                        pygame.draw.circle(screen, (0, 0, 0), (x, y), int(1*zoom))
 
         # to show numbers
-        if self.mode_grille == 1 or self.mode_grille == 2:
+        if self.mode_numbers == 1:
             font = pygame.font.SysFont("ArialBlack", int(max(1.15, self.cell_size//2) * zoom))
             for i in range(self.map_size[1]):
                 pos_x = (int((self.cell_size+1)*zoom)*i + int(self.x_slide) - int((self.s_w//2-self.s_w//2/zoom)*zoom))
@@ -125,6 +153,30 @@ class Game:
                 text = font.render('{}'.format(i), True, (0, 0, 250))
                 screen.blit(text, (2+pos_x, 3*self.s_h//4+int((self.s_h//4-self.s_h//4/zoom)*zoom)+1+self.y_slide))
             for j in range(self.map_size[0]):
+                pos_y = (int((self.cell_size+1)*zoom)*j + int(self.y_slide) - int((self.s_h//2-self.s_h//2/zoom)*zoom))
+                # middle
+                text = font.render('{}'.format(j), True, (0, 250, 0))
+                screen.blit(text, (self.s_w//2+2+self.x_slide, 1+pos_y))
+                # topleft
+                text = font.render('{}'.format(j), True, (250, 0, 0))
+                screen.blit(text, (self.s_w//4-int((self.s_w//4-self.s_w//4/zoom)*zoom)+2+self.x_slide, 1+pos_y))
+                # bottomright
+                text = font.render('{}'.format(j), True, (0, 0, 250))
+                screen.blit(text, (3*self.s_w//4+int((self.s_w//4-self.s_w//4/zoom)*zoom)+2+self.x_slide, 1+pos_y))
+        elif self.mode_numbers == 2:
+            font = pygame.font.SysFont("ArialBlack", int(max(1.5, 3*self.cell_size//4) * zoom))
+            for i in range(0, self.map_size[1], 5):
+                pos_x = (int((self.cell_size+1)*zoom)*i + int(self.x_slide) - int((self.s_w//2-self.s_w//2/zoom)*zoom))
+                # middle
+                text = font.render('{}'.format(i), True, (0, 250, 0))
+                screen.blit(text, (2+pos_x, self.s_h//2+1+self.y_slide))
+                # topleft
+                text = font.render('{}'.format(i), True, (250, 0, 0))
+                screen.blit(text, (2+pos_x, self.s_h//4-int((self.s_h//4-self.s_h//4/zoom)*zoom)+1+self.y_slide))
+                # bottomright
+                text = font.render('{}'.format(i), True, (0, 0, 250))
+                screen.blit(text, (2+pos_x, 3*self.s_h//4+int((self.s_h//4-self.s_h//4/zoom)*zoom)+1+self.y_slide))
+            for j in range(0, self.map_size[0], 5):
                 pos_y = (int((self.cell_size+1)*zoom)*j + int(self.y_slide) - int((self.s_h//2-self.s_h//2/zoom)*zoom))
                 # middle
                 text = font.render('{}'.format(j), True, (0, 250, 0))
@@ -168,6 +220,10 @@ class Game:
         # print game buttons :
         self.grille_button.print(screen)
         fct.pygame_draw_hashtag(screen, (130, 0, 0), self.grille_button.rect.center, self.grille_button.rect.w-10, 3)
+        self.numbers_button.print(screen)
+        font = pygame.font.SysFont("ArialBlack", 12)
+        text = font.render('123', True, (130, 0, 0))
+        screen.blit(text, (self.numbers_button.rect.topleft[0] + 1, self.numbers_button.rect.topleft[1] + 4))
         self.reset_button.print(screen)
         fct.pygame_draw_cross(screen, (130, 0, 0), self.reset_button.rect.center, self.reset_button.rect.w-15, 5)
         self.play_pause_button.print(screen)

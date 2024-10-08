@@ -79,13 +79,18 @@ while running:
             if not (zoom_button.rect.collidepoint(event.pos) or dezoom_button.rect.collidepoint(event.pos) or
                     go_to_center_button.rect.collidepoint(event.pos) or (tools_menu.which_submenu[0] != '0' and tools_menu.rect.collidepoint(event.pos))
                     or game.grille_button.rect.collidepoint(event.pos) or game.reset_button.rect.collidepoint(event.pos)
-                    or game.play_pause_button.rect.collidepoint(event.pos) or game.next_button.rect.collidepoint(event.pos) or game.back_button.rect.collidepoint(event.pos)):
+                    or game.play_pause_button.rect.collidepoint(event.pos) or game.next_button.rect.collidepoint(event.pos) or game.back_button.rect.collidepoint(event.pos)
+                    or game.numbers_button.rect.collidepoint(event.pos)):
                 game.update(event, zoom)
 
             if game.grille_button.use(event):
                 game.mode_grille += 1
-                if game.mode_grille >= 3:
+                if game.mode_grille >= 5:
                     game.mode_grille = 0
+            if game.numbers_button.use(event):
+                game.mode_numbers += 1
+                if game.mode_numbers >= 3:
+                    game.mode_numbers = 0
             if game.reset_button.use(event):
                 game.empty_map()
                 game.iteration = 0
@@ -110,10 +115,11 @@ while running:
         if running and (event.type == pygame.MOUSEBUTTONDOWN or event.type == pygame.KEYDOWN):
             tools_menu.update(event)
             screen_width, screen_height = tools_menu.screen_width, tools_menu.screen_height
-            zoom_button = Button(screen_width - 20 - 41 * 2 - 3, 20, 41, 41)
-            dezoom_button = Button(screen_width - 20 - 41, 20, 41, 41)
-            go_to_center_button = Button(screen_width - 20 - 27, 20 + 47, 27, 27)
-            game.grille_button = Button(screen_width-20-41*2-3, 67, 27, 27)
+            zoom_button.rect.x = screen_width-20-41*2-3
+            dezoom_button.rect.x = screen_width-20-41
+            go_to_center_button.rect.x = screen_width-20-27
+            game.grille_button.rect.x = screen_width-20-41*2-3
+            game.numbers_button.rect.x = screen_width-20-27*2-2
             all_toggle_state = {}
             for t_m_state in tools_menu.all_toggle_state.keys():
                 all_toggle_state[t_m_state] = tools_menu.all_toggle_state[t_m_state]

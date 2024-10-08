@@ -32,12 +32,12 @@ https://poc.onepantheon.fr/html/defi.html
       - button next iteration (passe à l'itération suivante (x1))
     - les boutons en haut à droite servent à :
       - zoom et dezoom ; pour slider(/bouger de gauche à droite et de haute en bas), utilisez les flèches directionnelles du clavier
-      - mode_grille ; pour changer entre les différentes grilles possibles [affecte les performances sur les maps 200x200 et surtout 500x500]
-      - mode_numbers ; WIP (not implemented yet), pour activer ou désactiver les nombres des cases [affecte les performances]
+      - mode_grille ; pour changer entre les différentes types de grilles possibles [affecte beaucoup les performances]
+      - mode_numbers ; pour activer ou désactiver les nombres des cases [n'affecte quasiment pas les performances]
       - go to center button, pour retourner au centre de la map
-    - + peut-être d'autres trucs que j'ai oublié de noté au dessus ; d'ailleurs n'hésitez à me dire les trucs à améliorer/que vous aimeriez
     - appuyer sur la touche échap à tout moment pour arrêter le programme
-
+    + peut-être d'autres trucs que j'ai oublié de noté au dessus ; d'ailleurs n'hésitez à me dire les trucs à améliorer/que vous aimeriez
+    
 
 - instructions pour exécuter le projet :
   - run main.py dans votre IDE python (pycharm, vscode, etc.) ; 
