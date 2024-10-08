@@ -47,8 +47,18 @@ class ToolsMenu:
 
         for button in self.all_button.keys():
             if self.all_button[button].use(event):
-
-                if button == "7R_pentomino" or button == "9aSmoker" or button == "9aTruc" or button == "9Max":  # change size of screen & map if needed
+                if button == "9PufferTwoCinq" or button == "9Rbreeder" or button == "9Vingt" or button == "9twoTruc":
+                    nb_of_cells = 500
+                    cell_size = 1
+                    self.game.iteration = 0
+                    self.game.play_pause_button_state = 0
+                    self.game.mode_grille = 0
+                    self.screen_width, self.screen_height = nb_of_cells * (cell_size + 1), nb_of_cells * (cell_size + 1)
+                    self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
+                    self.game.map_size, self.game.cell_size = (nb_of_cells, nb_of_cells), cell_size
+                    self.game.s_w, self.game.s_h = self.screen_width, self.screen_height
+                    self.game.empty_map()
+                elif button == "7R_pentomino" or button == "9aSmoker" or button == "9aTruc" or button == "9Max" or button == "9aRake" or button == "7Bunnies":  # change size of screen & map if needed
                     nb_of_cells = 200
                     cell_size = 4
                     self.game.iteration = 0
@@ -88,11 +98,15 @@ class ToolsMenu:
                             self.game.save_map("vos_créations/"+self.all_textzone["3filename"].user_text+"_100x100")
                         elif self.game.map_size == (200, 200):
                             self.game.save_map("vos_créations/"+self.all_textzone["3filename"].user_text+"_200x200")
+                        elif self.game.map_size == (500, 500):
+                            self.game.save_map("vos_créations/"+self.all_textzone["3filename"].user_text+"_500x500")
                     elif button == "3Load":
                         if self.game.map_size == (100, 100):
                             self.game.load_map("vos_créations/"+self.all_textzone["3filename"].user_text+"_100x100")
                         elif self.game.map_size == (200, 200):
                             self.game.load_map("vos_créations/"+self.all_textzone["3filename"].user_text+"_200x200")
+                        elif self.game.map_size == (500, 500):
+                            self.game.load_map("vos_créations/"+self.all_textzone["3filename"].user_text+"_500x500")
                     elif button == "2Structure_stable":
                         self.which_submenu[0] = '4'
                         self.which_submenu.append(button[0])
@@ -145,11 +159,22 @@ class ToolsMenu:
                         self.game.s_w, self.game.s_h = self.screen_width, self.screen_height
                         self.game.empty_map()
                     elif button == "1CinqCentCells":
-                        print("hello, it's WIP")
+                        nb_of_cells = 500
+                        cell_size = 1
+                        self.game.iteration = 0
+                        self.game.play_pause_button_state = 0
+                        self.game.mode_grille = 0
+                        self.screen_width, self.screen_height = nb_of_cells * (cell_size + 1), nb_of_cells * (cell_size + 1)
+                        self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
+                        self.game.map_size, self.game.cell_size = (nb_of_cells, nb_of_cells), cell_size
+                        self.game.s_w, self.game.s_h = self.screen_width, self.screen_height
+                        self.game.empty_map()
 
-                if self.game.map_size != (100, 100) and button != "7R_pentomino" and button != "9aSmoker" and button != "9aTruc" and button != "9Max" and (
+                if (self.game.map_size != (100, 100) and button != "7R_pentomino" and button != "9aSmoker" and button != "9aTruc" and button != "9Max"
+                        and button != "9PufferTwoCinq" and button != "9Rbreeder" and button != "9Vingt" and button != "9twoTruc" and button != "9aRake"
+                        and button != "7Bunnies" and (
                         self.which_submenu[0] == "4" or self.which_submenu[0] == "5" or self.which_submenu[0] == "6" or
-                        self.which_submenu[0] == '7' or self.which_submenu[0] == '8' or self.which_submenu[0] == '9'):  # change size of screen & map if needed
+                        self.which_submenu[0] == '7' or self.which_submenu[0] == '8' or self.which_submenu[0] == '9')):  # change size of screen & map if needed
                     nb_of_cells = 100
                     cell_size = 8
                     self.game.iteration = 0
@@ -199,7 +224,7 @@ class ToolsMenu:
             self.all_button["1DeuxCentCells"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*4, self.width, self.height)
             self.all_textzone["1DeuxCentCells"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*4, self.width, False, "map = 200*200")
             self.all_button["1CinqCentCells"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*5, self.width, self.height)
-            self.all_textzone["1CinqCentCells"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*5, self.width, False, "map = 500*500 (WIP)")
+            self.all_textzone["1CinqCentCells"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*5, self.width, False, "map = 500*500")
             self.nb_of_submenu = 7
 
         if self.which_submenu[0] == '2' and "2Structure_stable" not in self.all_button.keys():
@@ -258,12 +283,14 @@ class ToolsMenu:
             self.all_textzone["5Toad"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*3, self.width, False, "toad (period 2)")
             self.all_button["5Pulsar"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*4, self.width, self.height)
             self.all_textzone["5Pulsar"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*4, self.width, False, "pulsar (period 3)")
-            self.all_button["5PentaD"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*5, self.width, self.height)
-            self.all_textzone["5PentaD"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*5, self.width, False, "penta-decathlon (period 15)")
-            self.all_button["5big_one"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*6, self.width, self.height)
-            self.all_textzone["5big_one"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*6, self.width, False, "period 177")
+            self.all_button["5sept"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*5, self.width, self.height)
+            self.all_textzone["5sept"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*5, self.width, False, "76 P7 (period 7)")
+            self.all_button["5PentaD"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*6, self.width, self.height)
+            self.all_textzone["5PentaD"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*6, self.width, False, "penta-decathlon (period 15)")
+            self.all_button["5big_one"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*7, self.width, self.height)
+            self.all_textzone["5big_one"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*7, self.width, False, "(period 177)")
 
-            self.nb_of_submenu = 8
+            self.nb_of_submenu = 9
 
         if self.which_submenu[0] == '6' and "6Glider" not in self.all_button.keys():
             self.all_button["6Glider"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin, self.width, self.height)
@@ -280,8 +307,10 @@ class ToolsMenu:
         if self.which_submenu[0] == '7' and "7R_pentomino" not in self.all_button.keys():
             self.all_button["7R_pentomino"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin, self.width, self.height)
             self.all_textzone["7R_pentomino"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin, self.width, False, "the R-pentomino")
+            self.all_button["7Bunnies"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height, self.width, self.height)
+            self.all_textzone["7Bunnies"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height, self.width, False, "Bunnies")
 
-            self.nb_of_submenu = 2
+            self.nb_of_submenu = 3
 
         if self.which_submenu[0] == '8' and "9Gosper_glider_gun" not in self.all_button.keys():
             self.all_button["8Gosper_glider_gun"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin, self.width, self.height)
@@ -291,18 +320,25 @@ class ToolsMenu:
 
         if self.which_submenu[0] == '9' and "9aSmoker" not in self.all_button.keys():
             self.all_button["9aSmoker"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin, self.width, self.height)
-            self.all_textzone["9aSmoker"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin, self.width, False, "a smoker")
-            self.all_button["9aeSmoker"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height, self.width, self.height)
-            self.all_textzone["9aeSmoker"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height, self.width, False, "an ecological smoker")
-            # cf https://www.youtube.com/watch?v=S-W0NX97DB0 à 9min
-            self.all_button["9aRake"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*2, self.width, self.height)
-            self.all_textzone["9aRake"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*2, self.width, False, "a rake")  # to implement
-            self.all_button["9aTruc"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*3, self.width, self.height)
-            self.all_textzone["9aTruc"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*3, self.width, False, "a single block-laying switch engine")
-            self.all_button["9Max"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*4, self.width, self.height)
-            self.all_textzone["9Max"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*4, self.width, False, "a spacefiller (Max)")
+            self.all_textzone["9aSmoker"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin, self.width, False, "a smoker; a puffer")
+            self.all_button["9aTruc"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height, self.width, self.height)
+            self.all_textzone["9aTruc"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height, self.width, False, "a single block-laying switch engine")
+            self.all_button["9PufferTwo"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*2, self.width, self.height)
+            self.all_textzone["9PufferTwo"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*2, self.width, False, "Puffer 2")
+            self.all_button["9aRake"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*3, self.width, self.height)
+            self.all_textzone["9aRake"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*3, self.width, False, "the space rake")
+            self.all_button["9twoTruc"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*4, self.width, self.height)
+            self.all_textzone["9twoTruc"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*4, self.width, False, "two single block-layi truc (500x500)")
+            self.all_button["9Max"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*5, self.width, self.height)
+            self.all_textzone["9Max"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*5, self.width, False, "a spacefiller (Max)")
+            self.all_button["9PufferTwoCinq"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*6, self.width, self.height)
+            self.all_textzone["9PufferTwoCinq"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*6, self.width, False, "Puffer 2 (500x500)")
+            self.all_button["9Rbreeder"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*7, self.width, self.height)
+            self.all_textzone["9Rbreeder"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*7, self.width, False, "Riley's breeder (500x500)")
+            self.all_button["9Vingt"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*8, self.width, self.height)
+            self.all_textzone["9Vingt"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*8, self.width, False, "20-cell quadratic growth (500x500)")
 
-            self.nb_of_submenu = 6
+            self.nb_of_submenu = 10
 
         if self.which_submenu[0] != '0':
             self.all_button["back"] = Button(self.rect.x + self.border_margin,

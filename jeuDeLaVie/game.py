@@ -21,6 +21,9 @@ class Game:
         self.grille_button = Button(screen_w-20-41*2-3, 67, 27, 27)
         self.mode_grille = 1
 
+        #self.numbers_button =
+        #self.mode_numbers = 1
+
         self.reset_button = Button(10, 80, 31, 31)
         self.next_button = Button(10+93+9, 80, 31, 31)
         self.play_pause_button = Button(10+62+6, 80, 31, 31)
@@ -109,7 +112,7 @@ class Game:
 
         # to show numbers
         if self.mode_grille == 1 or self.mode_grille == 2:
-            font = pygame.font.SysFont("ArialBlack", int(4 * zoom))
+            font = pygame.font.SysFont("ArialBlack", int(max(1.15, self.cell_size//2) * zoom))
             for i in range(self.map_size[1]):
                 pos_x = (int((self.cell_size+1)*zoom)*i + int(self.x_slide) - int((self.s_w//2-self.s_w//2/zoom)*zoom))
                 # middle
@@ -134,7 +137,7 @@ class Game:
                 screen.blit(text, (3*self.s_w//4+int((self.s_w//4-self.s_w//4/zoom)*zoom)+2+self.x_slide, 1+pos_y))
 
         # to visualize the center
-        pygame.draw.circle(screen, "green", (self.s_w//2+self.x_slide, self.s_h//2+self.y_slide), 4*zoom)
+        pygame.draw.circle(screen, "green", (self.s_w//2+self.x_slide, self.s_h//2+self.y_slide), min(4*zoom, 4*5))
 
         # print alive cells
         for row in range(self.map_size[0]):

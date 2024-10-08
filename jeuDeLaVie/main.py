@@ -66,7 +66,7 @@ while running:
 
         if event.type == pygame.MOUSEBUTTONDOWN:  # or event.type == pygame.KEYDOWN:
 
-            if zoom_button.use(event) and zoom < 5:
+            if zoom_button.use(event) and zoom < 10:
                 zoom += 1
                 k = 1
             if dezoom_button.use(event) and zoom > 1:
