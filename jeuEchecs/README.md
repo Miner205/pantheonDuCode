@@ -8,9 +8,9 @@ https://poc.onepantheon.fr/html/defi.html
 
 
 - fonctionnement du code :
-  - en C?? ; pygame
+  - display avec pygame
   - 
 
 
 - instructions pour exécuter le projet :
-  - run main.py dans votre IDE C (CLion, vscode, etc.).
+  - run main.py dans votre IDE python (Pycharm, vscode, etc.).

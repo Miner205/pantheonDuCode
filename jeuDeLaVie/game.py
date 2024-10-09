@@ -217,7 +217,7 @@ class Game:
         text = font.render('Population : {}'.format(self.count_alive_total()), True, (200, 0, 0))
         screen.blit(text, (10, 50))
 
-        # print game buttons :
+        # print game buttons
         self.grille_button.print(screen)
         fct.pygame_draw_hashtag(screen, (130, 0, 0), self.grille_button.rect.center, self.grille_button.rect.w-10, 3)
         self.numbers_button.print(screen)
