@@ -17,9 +17,9 @@ center = (screen_width//2, screen_height//2)
 screen = pygame.display.set_mode((screen_width, screen_height))
 
 # load sounds
-less_sound = pygame.mixer.Sound("sounds/less.mp3")
-more_sound = pygame.mixer.Sound("sounds/more.mp3")
-find_sound = pygame.mixer.Sound("sounds/find.mp3")
+less_sound = pygame.mixer.Sound("./sounds/less.mp3")
+more_sound = pygame.mixer.Sound("./sounds/more.mp3")
+find_sound = pygame.mixer.Sound("./sounds/find.mp3")
 
 
 running = True

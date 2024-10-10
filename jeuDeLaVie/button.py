@@ -9,7 +9,7 @@ class Button:
     def use(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
             if self.rect.collidepoint(event.pos):
-                click_effect = pygame.mixer.Sound("sounds/Pen_Clicking.mp3")
+                click_effect = pygame.mixer.Sound("./sounds/Pen_Clicking.mp3")
                 click_effect.play()
                 return True
 

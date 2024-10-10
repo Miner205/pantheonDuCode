@@ -252,7 +252,7 @@ class Game:
 
     def save_map(self, filename):
         # if not os.path.exists(filename + ".txt"):  # necessary ?
-        with open(filename+".txt", 'w') as f:
+        with open("./"+filename+".txt", 'w') as f:
             for row in range(self.map_size[0]):
                 if '1' in self.map[row]:
                     f.write(";".join(self.map[row]))
@@ -261,12 +261,12 @@ class Game:
                 f.write('\n')
 
     def load_map(self, filename):
-        if os.path.exists(filename+".txt"):
+        if os.path.exists("./"+filename+".txt"):
             self.prev_map = []
             self.play_pause_button_state = 0
             self.iteration = 0
             self.map = []
-            with open(filename+".txt", 'r') as f:
+            with open("./"+filename+".txt", 'r') as f:
                 line = f.readline()
                 while line != "":
                     self.map.append(line.strip('\n').split(';'))

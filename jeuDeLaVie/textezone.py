@@ -16,7 +16,7 @@ class TextZone:
         if self.editing and event.type == pygame.MOUSEBUTTONDOWN:
             if self.rect.collidepoint(event.pos):
                 if not self.active:
-                    click_effect = pygame.mixer.Sound("sounds/Pen_Clicking.mp3")
+                    click_effect = pygame.mixer.Sound("./sounds/Pen_Clicking.mp3")
                     click_effect.play()
                 self.active = True
             else:

@@ -14,7 +14,7 @@ class Toggle:
     def use(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
             if self.rect_check.collidepoint(event.pos):
-                click_effect = pygame.mixer.Sound("sounds/Pen_Clicking.mp3")
+                click_effect = pygame.mixer.Sound("./sounds/Pen_Clicking.mp3")
                 click_effect.play()
                 self.toggle_state = not self.toggle_state
 

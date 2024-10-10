@@ -69,14 +69,14 @@ class Game:
             # + update rect.x .y
 
     def save_game(self):
-        with open("save.txt", 'w') as f:
+        with open("./save.txt", 'w') as f:
             for piece in self.chess_board:
                 f.write(piece.pos[0]+';'+piece.pos[1]+';'+piece.state+';'+piece.have_ever_moved)
                 f.write('\n')
 
     def load_game(self):
-        if os.path.exists("save.txt"):
-            with open("save.txt", 'r') as f:
+        if os.path.exists("./save.txt"):
+            with open("./save.txt", 'r') as f:
                 line = f.readline()
                 piece = 0
                 while line != "":
