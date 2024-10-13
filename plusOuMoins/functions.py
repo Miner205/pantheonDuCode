@@ -1,6 +1,4 @@
 # file for definitions of some useful functions
-import time
-
 import pygame
 
 

@@ -21,14 +21,16 @@ zoom = 1.0
 
 game = Game(screen_width, screen_height)
 
-game_started = 0
+which_scene = 0  # 0 for main_menu, 1 for game, -1 for win/loose screen
 
 while running:
 
     # get the current time in seconds
     current_time = pygame.time.get_ticks()//1000
 
-    if not game_started:
+    # screen_width, screen_height = pygame.display.get_window_size() !!!!!! (to update everywhere ; also in piece)
+
+    if which_scene == 0:
         # background
         pygame.draw.rect(screen, (255, 255, 255), (0, 0, screen_width, screen_height))
         start_solo_button_button.print(screen)
@@ -45,13 +47,14 @@ while running:
             running = False
             pygame.quit()
 
-        if game_started and event.type == pygame.MOUSEBUTTONDOWN:  # or event.type == pygame.KEYDOWN:
+        if which_scene == 1 and event.type == pygame.MOUSEBUTTONDOWN:  # or event.type == pygame.KEYDOWN:
 
             game.update(event, zoom)
 
     if running:
 
-        game.print(screen, zoom)
+        if which_scene == 1:
+            game.print(screen, zoom)
 
         # print the current time :
         font = pygame.font.SysFont("ArialBlack", 20)

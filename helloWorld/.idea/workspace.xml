@@ -7,10 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="47d77bdf-66df-4a54-9212-33e3b682341b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../jeuDeLaVie/button.py" beforeDir="false" afterPath="$PROJECT_DIR$/../jeuDeLaVie/button.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jeuDeLaVie/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/../jeuDeLaVie/game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jeuDeLaVie/textezone.py" beforeDir="false" afterPath="$PROJECT_DIR$/../jeuDeLaVie/textezone.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../jeuDeLaVie/toggle.py" beforeDir="false" afterPath="$PROJECT_DIR$/../jeuDeLaVie/toggle.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../jeuEchecs/button.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../jeuEchecs/functions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jeuDeLaVie/functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/../jeuDeLaVie/functions.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,6 +91,7 @@
       <workItem from="1727881695386" duration="26000" />
       <workItem from="1728080715415" duration="55000" />
       <workItem from="1728578678778" duration="12000" />
+      <workItem from="1728646058955" duration="4000" />
     </task>
     <servers />
   </component>

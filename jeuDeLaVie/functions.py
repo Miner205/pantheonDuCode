@@ -1,6 +1,4 @@
 # file for definitions of some useful functions
-import time
-
 import pygame
 
 
@@ -19,7 +17,7 @@ def pygame_draw_minus(surface, color, center_point, diameter=5, line_thickness=1
     pygame.draw.line(surface, color, (x-d, y), (x+d, y), line_thickness)
 
 
-def pygame_draw_square(surface, color, top_left_pos, side_length, zoom, line_thickness=0):
+def pygame_draw_square(surface, color, top_left_pos, side_length, zoom, line_thickness=0):  # pygame.draw.rect ?
     """draw a square ;
         top_left_pos like (x,y)"""
     (x, y) = top_left_pos[0]+max(1, 1*zoom/2), top_left_pos[1]+max(1, 1*zoom/2)

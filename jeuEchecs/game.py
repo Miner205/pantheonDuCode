@@ -1,27 +1,30 @@
 import pygame
 from piece import Piece
+from button import Button
 import os
+import functions as fct
 
 
 class Game:
     def __init__(self, screen_w, screen_h):
         self.game_mode = 0  # 0 for solo ; 1 for local multi ; 2 for online multi
-        self.chess_board = (Piece("rook", "k", (0, 0)), Piece("knight", "k", (0, 1)),
-                            Piece("bishop", "k", (0, 2)), Piece("queen", "k", (0, 3)),
-                            Piece("king", "k", (0, 4)), Piece("bishop", "k", (0, 5)),
-                            Piece("knight", "k", (0, 6)), Piece("rook", "k", (0, 7)),
-                            Piece("pawn", "k", (1, 0)), Piece("pawn", "k", (1, 1)),
-                            Piece("pawn", "k", (1, 2)), Piece("pawn", "k", (1, 3)),
-                            Piece("pawn", "k", (1, 4)), Piece("pawn", "k", (1, 5)),
-                            Piece("pawn", "k", (1, 6)), Piece("pawn", "k", (1, 7)),
-                            Piece("pawn", "w", (6, 0)), Piece("pawn", "w", (6, 1)),
-                            Piece("pawn", "w", (6, 2)), Piece("pawn", "w", (6, 3)),
-                            Piece("pawn", "w", (6, 4)), Piece("pawn", "w", (6, 5)),
-                            Piece("pawn", "w", (6, 6)), Piece("pawn", "w", (6, 7)),
-                            Piece("rook", "w", (7, 0)), Piece("knight", "w", (7, 1)),
-                            Piece("bishop", "w", (7, 2)), Piece("queen", "w", (7, 3)),
-                            Piece("king", "w", (7, 4)), Piece("bishop", "w", (7, 5)),
-                            Piece("knight", "w", (7, 6)), Piece("rook", "w", (7, 7)))
+        self.game_state = 0  # 1 = white win ; 2 for black win ; 3 for nul
+        self.chess_board = (Piece(self, "rook", "k", (0, 0)), Piece(self, "knight", "k", (0, 1)),
+                            Piece(self, "bishop", "k", (0, 2)), Piece(self, "queen", "k", (0, 3)),
+                            Piece(self, "king", "k", (0, 4)), Piece(self, "bishop", "k", (0, 5)),
+                            Piece(self, "knight", "k", (0, 6)), Piece(self, "rook", "k", (0, 7)),
+                            Piece(self, "pawn", "k", (1, 0)), Piece(self, "pawn", "k", (1, 1)),
+                            Piece(self, "pawn", "k", (1, 2)), Piece(self, "pawn", "k", (1, 3)),
+                            Piece(self, "pawn", "k", (1, 4)), Piece(self, "pawn", "k", (1, 5)),
+                            Piece(self, "pawn", "k", (1, 6)), Piece(self, "pawn", "k", (1, 7)),
+                            Piece(self, "pawn", "w", (6, 0)), Piece(self, "pawn", "w", (6, 1)),
+                            Piece(self, "pawn", "w", (6, 2)), Piece(self, "pawn", "w", (6, 3)),
+                            Piece(self, "pawn", "w", (6, 4)), Piece(self, "pawn", "w", (6, 5)),
+                            Piece(self, "pawn", "w", (6, 6)), Piece(self, "pawn", "w", (6, 7)),
+                            Piece(self, "rook", "w", (7, 0)), Piece(self, "knight", "w", (7, 1)),
+                            Piece(self, "bishop", "w", (7, 2)), Piece(self, "queen", "w", (7, 3)),
+                            Piece(self, "king", "w", (7, 4)), Piece(self, "bishop", "w", (7, 5)),
+                            Piece(self, "knight", "w", (7, 6)), Piece(self, "rook", "w", (7, 7)))
         self.turn = "w"
 
         self.s_w = screen_w
@@ -30,13 +33,23 @@ class Game:
         self.x_slide = 0
         self.y_slide = 0
 
+        self.board_matrix = []
+        self.update_board_representation_matrix()
+        self.en_passant_is_possible = 0
+        self.pawn_promotion_is_occurring = 0
+
         self.menu_button = Button(screen_w-20-41*2-3, 67, 27, 27)
 
     def update(self, event, zoom):
         if event.type == pygame.MOUSEBUTTONDOWN:
-            for piece in self.chess_board:
-                if piece.state:
-                    piece.update(event, self.get_board_representation_matrix())
+            if self.pawn_promotion_is_occurring == 0:
+                for piece in self.chess_board:
+                    if piece.state:
+                        piece.update(event)
+                self.update_board_representation_matrix()
+            else:
+                kk
+
 
     def print(self, screen, zoom):
 
@@ -55,6 +68,9 @@ class Game:
         for piece in self.chess_board:
             if piece.state:
                 piece.print(screen)
+
+        if self.pawn_promotion_is_occurring == 1:
+            kk
 
         # print game menu_button
         self.menu_button.print(screen)
@@ -87,17 +103,23 @@ class Game:
                     line = f.readline()
                     piece += 0
 
-    def get_board_representation_matrix(self):
-        board_matrix = [[0 for _ in range(8)] for _ in range(8)]
+    def update_board_representation_matrix(self):
+        self.board_matrix = [[0 for _ in range(8)] for _ in range(8)]
         for piece in self.chess_board:
             if piece.state:
                 if self.turn == "w":
                     if piece.color == "w":
-                        board_matrix[piece.pos[0]][piece.pos[1]] = 1  # 1 like allies & -1 like enemies
+                        self.board_matrix[piece.pos[0]][piece.pos[1]] = 1  # 1 like allies & -1 like enemies
                     else:
-                        board_matrix[piece.pos[0]][piece.pos[1]] = -1
+                        if piece.name != "king":
+                            self.board_matrix[piece.pos[0]][piece.pos[1]] = -1
+                        else:
+                            self.board_matrix[piece.pos[0]][piece.pos[1]] = -2
                 else:
                     if piece.color == "k":
-                        board_matrix[piece.pos[0]][piece.pos[1]] = 1
+                        self.board_matrix[piece.pos[0]][piece.pos[1]] = 1
                     else:
-                        board_matrix[piece.pos[0]][piece.pos[1]] = -1
+                        if piece.name != "king":
+                            self.board_matrix[piece.pos[0]][piece.pos[1]] = -1
+                        else:
+                            self.board_matrix[piece.pos[0]][piece.pos[1]] = -2
