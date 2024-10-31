@@ -7,9 +7,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="47d77bdf-66df-4a54-9212-33e3b682341b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../jeuEchecs/button.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../jeuEchecs/functions.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../jeuDeLaVie/popups.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../jeuEchecs/popups.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../jeuEchecs/textezone.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jeuDeLaVie/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../jeuDeLaVie/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../jeuDeLaVie/functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/../jeuDeLaVie/functions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jeuDeLaVie/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/../jeuDeLaVie/game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jeuDeLaVie/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../jeuDeLaVie/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jeuDeLaVie/pré_concus/oscillateurs/4 blinkers.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../jeuDeLaVie/pré_concus/oscillateurs/4 blinkers.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jeuDeLaVie/tools_menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/../jeuDeLaVie/tools_menu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jeuEchecs/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../jeuEchecs/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../jeuEchecs/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../jeuEchecs/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,13 +61,13 @@
   <component name="RunManager">
     <configuration name="main_python" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="helloWorld" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.11" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -92,6 +100,7 @@
       <workItem from="1728080715415" duration="55000" />
       <workItem from="1728578678778" duration="12000" />
       <workItem from="1728646058955" duration="4000" />
+      <workItem from="1729541279708" duration="126000" />
     </task>
     <servers />
   </component>

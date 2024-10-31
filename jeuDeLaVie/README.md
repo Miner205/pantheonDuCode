@@ -12,6 +12,15 @@ https://poc.onepantheon.fr/html/defi.html
   - https://www.youtube.com/watch?v=eMn43As24Bo
 
 
+To do :
+-faire en sorte de pouvoir mettre plusieurs structures préconcus en même temps sur une même map en choisisant où placer la structure.
+-add sécuriter pour écrasement nomfichier vos créations.
+-choix de si la grille est enlever quand import préconcus , choix de la taille de map
+-mon idée de selection/deplacement mode
+-ptet d'autres trucs
+
+
+
 - fonctionnement du code :
   - display avec pygame
   - functionalities :
@@ -42,3 +51,15 @@ https://poc.onepantheon.fr/html/defi.html
 - instructions pour exécuter le projet :
   - run main.py dans votre IDE python (pycharm, vscode, etc.) ; 
 [comment créait-on un exécutable ?] : https://www.youtube.com/watch?v=ufp4LJwJQUE
+
+
+
+https://www.youtube.com/watch?v=eMn43As24Bo
+https://en.wikipedia.org/wiki/Breeder_(cellular_automaton)
+https://conwaylife.com/wiki/Sawtooth_1212
+https://conwaylife.com/wiki/Pufferfish
+https://conwaylife.com/wiki/P58_pi-heptomino_hassler
+https://www.youtube.com/watch?v=C2vgICfQawE&t=188s
+https://docs.python.org/3/library/functions.html#open
+https://www.youtube.com/results?search_query=langton+ant
+

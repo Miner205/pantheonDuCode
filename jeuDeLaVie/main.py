@@ -30,7 +30,7 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 
 running = True
 
-zoom = 1.0  # 2.0
+zoom = 1
 zoom_button = Button(screen_width-20-41*2-3, 20, 41, 41)
 dezoom_button = Button(screen_width-20-41, 20, 41, 41)
 
@@ -92,9 +92,7 @@ while running:
                 if game.mode_numbers >= 3:
                     game.mode_numbers = 0
             if game.reset_button.use(event):
-                game.empty_map()
-                game.iteration = 0
-                game.play_pause_button_state = 0
+                game.reset_map()
             if game.play_pause_button.use(event):
                 game.play_pause_button_state = not game.play_pause_button_state
             if game.next_button.use(event):
@@ -149,8 +147,8 @@ while running:
         fct.pygame_draw_minus(screen, (130, 0, 0), dezoom_button.rect.center, dezoom_button.rect.w - 10, 5)
         # print the zoom :
         font = pygame.font.SysFont("ArialBlack", 15)
-        text = font.render('x{}'.format(zoom), True, (0, 0, 0))
-        screen.blit(text, (screen_width - 85, -3))
+        text = font.render('x{}'.format(zoom), True, (235, 0, 0))
+        screen.blit(text, (screen_width - 74, -3))
         # print go to center button :
         go_to_center_button.print(screen)
         pygame.draw.circle(screen, (130, 0, 0), go_to_center_button.rect.center, 5)

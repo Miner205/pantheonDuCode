@@ -2,6 +2,7 @@ import pygame
 from button import Button
 from textezone import TextZone
 from toggle import Toggle
+import os
 
 
 class ToolsMenu:
@@ -17,10 +18,12 @@ class ToolsMenu:
         self.all_button = {}
         self.all_textzone = {}
         self.all_toggle = {}
-        self.all_toggle_state = {"1Detailed_color": False}
+        self.all_toggle_state = {"1Detailed_color": False, "1Selection/Displacement_mode": False}
         self.button_to_del = []
         self.textzone_to_del = []
         self.toggle_to_del = []
+
+        self.vos_creations_filename = "mymap"
 
         self.game = game
         self.screen = screen
@@ -50,39 +53,33 @@ class ToolsMenu:
                 if button == "9PufferTwoCinq" or button == "9Rbreeder" or button == "9Vingt" or button == "9twoTruc":
                     nb_of_cells = 500
                     cell_size = 1
-                    self.game.iteration = 0
-                    self.game.play_pause_button_state = 0
                     self.game.mode_grille = 0
                     self.game.mode_numbers = 0
                     self.screen_width, self.screen_height = nb_of_cells * (cell_size + 1), nb_of_cells * (cell_size + 1)
                     self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
                     self.game.map_size, self.game.cell_size = (nb_of_cells, nb_of_cells), cell_size
                     self.game.s_w, self.game.s_h = self.screen_width, self.screen_height
-                    self.game.empty_map()
+                    self.game.reset_map()
                 elif (button == "7R_pentomino" or button == "9aSmoker" or button == "9aTruc" or button == "9Max" or button == "9aRake" or button == "7Bunnies"
                       or button == "9block_puffer" or button == "8_g_LWSS_gun"):  # change size of screen & map if needed
                     nb_of_cells = 200
                     cell_size = 4
-                    self.game.iteration = 0
-                    self.game.play_pause_button_state = 0
                     self.game.mode_grille = 0
                     self.game.mode_numbers = 0
                     self.screen_width, self.screen_height = nb_of_cells * (cell_size + 1), nb_of_cells * (cell_size + 1)
                     self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
                     self.game.map_size, self.game.cell_size = (nb_of_cells, nb_of_cells), cell_size
                     self.game.s_w, self.game.s_h = self.screen_width, self.screen_height
-                    self.game.empty_map()
+                    self.game.reset_map()
                 elif self.game.map_size != (100, 100) and button != "back" and (self.which_submenu[0] == "4" or self.which_submenu[0] == "5" or self.which_submenu[0] == "6"
                                                                           or self.which_submenu[0] == '7' or self.which_submenu[0] == '8' or self.which_submenu[0] == '9'):
                     nb_of_cells = 100
                     cell_size = 8
-                    self.game.iteration = 0
-                    self.game.play_pause_button_state = 0
                     self.screen_width, self.screen_height = nb_of_cells * (cell_size + 1), nb_of_cells * (cell_size + 1)
                     self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
                     self.game.map_size, self.game.cell_size = (nb_of_cells, nb_of_cells), cell_size
                     self.game.s_w, self.game.s_h = self.screen_width, self.screen_height
-                    self.game.empty_map()
+                    self.game.reset_map()
 
                 if button == "back":
                     self.which_submenu[0] = self.which_submenu.pop()
@@ -98,7 +95,10 @@ class ToolsMenu:
                         self.which_submenu.append(button[0])
                     elif button == "3Save":
                         if self.game.map_size == (100, 100):
-                            self.game.save_map("vos_créations/"+self.all_textzone["3filename"].user_text+"_100x100")
+                            if os.path.exists("./vos_créations/"+self.all_textzone["3filename"].user_text+"_100x100.txt"):
+                                self.confimation_popup.active = 1
+                            else:
+                                self.game.save_map("vos_créations/"+self.all_textzone["3filename"].user_text+"_100x100")
                         elif self.game.map_size == (200, 200):
                             self.game.save_map("vos_créations/"+self.all_textzone["3filename"].user_text+"_200x200")
                         elif self.game.map_size == (500, 500):
@@ -143,37 +143,31 @@ class ToolsMenu:
                     elif button == "1CentCells":
                         nb_of_cells = 100
                         cell_size = 8
-                        self.game.iteration = 0
-                        self.game.play_pause_button_state = 0
                         self.screen_width, self.screen_height = nb_of_cells * (cell_size + 1), nb_of_cells * (cell_size + 1)
                         self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
                         self.game.map_size, self.game.cell_size = (nb_of_cells, nb_of_cells), cell_size
                         self.game.s_w, self.game.s_h = self.screen_width, self.screen_height
-                        self.game.empty_map()
+                        self.game.reset_map()
                     elif button == "1DeuxCentCells":
                         nb_of_cells = 200
                         cell_size = 4
-                        self.game.iteration = 0
-                        self.game.play_pause_button_state = 0
                         self.game.mode_grille = 0
                         self.game.mode_numbers = 0
                         self.screen_width, self.screen_height = nb_of_cells * (cell_size + 1), nb_of_cells * (cell_size + 1)
                         self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
                         self.game.map_size, self.game.cell_size = (nb_of_cells, nb_of_cells), cell_size
                         self.game.s_w, self.game.s_h = self.screen_width, self.screen_height
-                        self.game.empty_map()
+                        self.game.reset_map()
                     elif button == "1CinqCentCells":
                         nb_of_cells = 500
                         cell_size = 1
-                        self.game.iteration = 0
-                        self.game.play_pause_button_state = 0
                         self.game.mode_grille = 0
                         self.game.mode_numbers = 0
                         self.screen_width, self.screen_height = nb_of_cells * (cell_size + 1), nb_of_cells * (cell_size + 1)
                         self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
                         self.game.map_size, self.game.cell_size = (nb_of_cells, nb_of_cells), cell_size
                         self.game.s_w, self.game.s_h = self.screen_width, self.screen_height
-                        self.game.empty_map()
+                        self.game.reset_map()
 
                 if (self.game.map_size != (100, 100) and button != "7R_pentomino" and button != "9aSmoker" and button != "9aTruc" and button != "9Max"
                         and button != "9PufferTwoCinq" and button != "9Rbreeder" and button != "9Vingt" and button != "9twoTruc" and button != "9aRake"
@@ -215,22 +209,27 @@ class ToolsMenu:
             self.toggle_to_del.clear()
 
         if self.which_submenu[0] == '1' and "1Creation" not in self.all_button.keys():
-            self.all_button["1Creation"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin, self.width, self.height)
-            self.all_textzone["1Creation"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin, self.width, False, "Pré-concus")
-            self.all_button["1Save_Load"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height, self.width, self.height)
-            self.all_textzone["1Save_Load"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height, self.width, False, "Save&Load map")
             self.all_toggle["1Detailed_color"] = Toggle(self.rect.x + self.border_margin,
-                                                           self.rect.y + self.border_margin+self.height*2,
+                                                           self.rect.y + self.border_margin,
                                                            "Detailed cell color",
                                                            self.all_toggle_state["1Detailed_color"], self.width,
                                                            self.height)
-            self.all_button["1CentCells"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*3, self.width, self.height)
-            self.all_textzone["1CentCells"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*3, self.width, False, "map = 100*100")
-            self.all_button["1DeuxCentCells"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*4, self.width, self.height)
-            self.all_textzone["1DeuxCentCells"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*4, self.width, False, "map = 200*200")
-            self.all_button["1CinqCentCells"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*5, self.width, self.height)
-            self.all_textzone["1CinqCentCells"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*5, self.width, False, "map = 500*500")
-            self.nb_of_submenu = 7
+            self.all_toggle["1Selection/Displacement_mode"] = Toggle(self.rect.x + self.border_margin,
+                                                           self.rect.y + self.border_margin+self.height,
+                                                           "Selection/Displacement mode",
+                                                           self.all_toggle_state["1Selection/Displacement_mode"], self.width,
+                                                           self.height)
+            self.all_button["1Creation"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*2, self.width, self.height)
+            self.all_textzone["1Creation"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*2, self.width, False, "Pré-concus")
+            self.all_button["1Save_Load"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*3, self.width, self.height)
+            self.all_textzone["1Save_Load"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*3, self.width, False, "Save&Load vos maps")
+            self.all_button["1CentCells"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*4, self.width, self.height)
+            self.all_textzone["1CentCells"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*4, self.width, False, "map = 100*100")
+            self.all_button["1DeuxCentCells"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*5, self.width, self.height)
+            self.all_textzone["1DeuxCentCells"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*5, self.width, False, "map = 200*200")
+            self.all_button["1CinqCentCells"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*6, self.width, self.height)
+            self.all_textzone["1CinqCentCells"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*6, self.width, False, "map = 500*500")
+            self.nb_of_submenu = 8
 
         if self.which_submenu[0] == '2' and "2Structure_stable" not in self.all_button.keys():
             self.all_button["2Structure_stable"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin, self.width, self.height)
@@ -248,12 +247,15 @@ class ToolsMenu:
             self.nb_of_submenu = 7
 
         if self.which_submenu[0] == '3' and "3filename" not in self.all_textzone.keys():
-            self.all_textzone["3filename"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin, self.width, True, "mymap", "txt name")
+            self.all_textzone["3filename"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin, self.width, True, self.vos_creations_filename, "txt name")
             self.all_button["3Save"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height, self.width, self.height)
             self.all_button["3Load"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*2, self.width, self.height)
             self.all_textzone["3Save"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height, self.width, False, "Save map as txt")
             self.all_textzone["3Load"] = TextZone(self.rect.x+self.border_margin, self.rect.y+self.border_margin+self.height*2, self.width, False, "Load a txt into map")
             self.nb_of_submenu = 4
+
+        if self.which_submenu[0] == '3':
+            self.vos_creations_filename = self.all_textzone["3filename"].user_text
 
         if self.which_submenu[0] == '4' and "4Block" not in self.all_button.keys():
             self.all_button["4Block"] = Button(self.rect.x+self.border_margin, self.rect.y+self.border_margin, self.width, self.height)

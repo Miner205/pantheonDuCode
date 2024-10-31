@@ -3,11 +3,12 @@ from piece import Piece
 from button import Button
 import os
 import functions as fct
+from popups import PawnPromotion
 
 
 class Game:
     def __init__(self, screen_w, screen_h):
-        self.game_mode = 0  # 0 for solo ; 1 for local multi ; 2 for online multi
+        self.game_mode = 0  # 1 for local solo ; 0 for local multi ; 2 for online multi
         self.game_state = 0  # 1 = white win ; 2 for black win ; 3 for nul
         self.chess_board = (Piece(self, "rook", "k", (0, 0)), Piece(self, "knight", "k", (0, 1)),
                             Piece(self, "bishop", "k", (0, 2)), Piece(self, "queen", "k", (0, 3)),
@@ -36,46 +37,84 @@ class Game:
         self.board_matrix = []
         self.update_board_representation_matrix()
         self.en_passant_is_possible = 0
-        self.pawn_promotion_is_occurring = 0
+        self.pawn_promotion_is_occurring = None
+        self.pawn_promotion_popup = None
 
-        self.menu_button = Button(screen_w-20-41*2-3, 67, 27, 27)
+        self.menu_button = Button(screen_w-5-27, 5, 27, 27)
 
     def update(self, event, zoom):
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if self.pawn_promotion_is_occurring == 0:
+            if self.pawn_promotion_is_occurring is None:
                 for piece in self.chess_board:
-                    if piece.state:
+                    if piece.state and piece.color == self.turn:
                         piece.update(event)
                 self.update_board_representation_matrix()
-            else:
-                kk
+            if self.pawn_promotion_is_occurring is not None:
+                if self.pawn_promotion_popup is None:
+                    self.pawn_promotion_popup = PawnPromotion(self.pawn_promotion_is_occurring.rect.topleft[0], self.pawn_promotion_is_occurring.rect.topleft[1],
+                                                          self.pawn_promotion_is_occurring.color)
+                    self.pawn_promotion_popup.active = 1
+                else:
+                    temp = self.pawn_promotion_popup.update(event)
+                    if temp:
+                        self.pawn_promotion_is_occurring.name = temp
+                        self.pawn_promotion_is_occurring.image = pygame.image.load("./images/"+temp+"_"+self.pawn_promotion_is_occurring.color+".png")
+                        self.pawn_promotion_popup = None
+                        self.pawn_promotion_is_occurring = None
+                        self.update_board_representation_matrix()
 
 
     def print(self, screen, zoom):
-
+        k = 1
         # chess board
-        for i in range(0, self.s_w, self.s_w//8):
-            for j in range(0, self.s_h, self.s_h//8):
-                pygame.draw.rect(screen, "#eeeed2", (i, j, self.s_w//8, self.s_h//8))
-
-        # pygame.draw.rect(screen, "#769656", (i, j, self.s_w // 8, self.s_h // 8))
-
+        for y in range(0, self.s_h, self.s_h//8):
+            k = 1-k
+            for x in range(0+k*self.s_w//8, self.s_w, 2*self.s_h//8):
+                pygame.draw.rect(screen, "#eeeed2", (x, y, self.s_w//8, self.s_h//8))
+            for x in range(0+(1-k)*self.s_w//8, self.s_w, 2*self.s_h//8):
+                pygame.draw.rect(screen, "#769656", (x, y, self.s_w//8, self.s_h//8))
 
         # to visualize the center
         pygame.draw.circle(screen, "green", (self.s_w//2+self.x_slide, self.s_h//2+self.y_slide), min(4*zoom, 4*5))
 
         # print pieces
         for piece in self.chess_board:
+            if piece.state and piece.selected:
+                m = piece.get_allowed_mouvements_matrix()
+                for row in range(8):
+                    for col in range(8):
+                        if m[row][col]:
+                            pygame.draw.rect(screen, "green",
+                                             (col*(piece.screen_size[1]//8)+(piece.screen_size[1]//8)//30, row*(piece.screen_size[0]//8)+(piece.screen_size[0]//8)//30,
+                                              piece.screen_size[0]//8-2*(piece.screen_size[0]//8)//30, piece.screen_size[1]//8-2*(piece.screen_size[1]//8)//30))
+        for piece in self.chess_board:
             if piece.state:
                 piece.print(screen)
 
-        if self.pawn_promotion_is_occurring == 1:
-            kk
+        if self.pawn_promotion_is_occurring is not None:
+            if self.pawn_promotion_popup is not None:
+                self.pawn_promotion_popup.print(screen)
 
         # print game menu_button
         self.menu_button.print(screen)
         fct.pygame_draw_hashtag(screen, (130, 0, 0), self.menu_button.rect.center, self.menu_button.rect.w - 10, 3)
-        pygame.draw.circle(screen, (130, 0, 0), self.menu_button.rect.center, 5)
+        pygame.draw.circle(screen, (130, 0, 0), self.menu_button.rect.center, 7)
+
+        # turn/action rect
+        t = self.turn
+        if self.pawn_promotion_is_occurring is not None:
+            if t == 'w':
+                t = 'k'
+            else:
+                t = 'w'
+        if t == 'w':
+            pygame.draw.rect(screen, "#FFFFFF", (5, 35, 20, 20))
+        else:
+            pygame.draw.rect(screen, "#363636", (5, 35, 20, 20))
+        pygame.draw.rect(screen, "black", (5, 35, 20, 20), 3)
+        if self.pawn_promotion_is_occurring is not None:
+            pygame.draw.rect(screen, "red", (5, 35+20, 20, 20))
+            pygame.draw.rect(screen, "black", (5, 35+20, 20, 20), 3)
 
     def reset_chess_board(self):
         for piece in self.chess_board:

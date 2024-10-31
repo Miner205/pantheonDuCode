@@ -7,7 +7,7 @@ import os
 class Game:
     def __init__(self, map_size, cell_size, screen_w, screen_h):
         self.map = []
-        self.map_size = map_size   # nb of cells, like (100, 100).
+        self.map_size = map_size   # nb of cells, like (100, 100). ;; in row & col.
         self.cell_size = cell_size
         self.empty_map()
         self.iteration = 0
@@ -83,60 +83,65 @@ class Game:
     def print(self, screen, zoom):
 
         # print grille/quadrillage
+        if self.map_size == (500, 500) and zoom == 1:
+            fix = 1
+        else:
+            fix = 0
+
         if self.mode_grille == 1 or self.mode_grille == 2:
             for x in range(self.s_w//2+int(self.x_slide), -1, int(-(self.cell_size+1)*zoom)):
-                if self.mode_grille == 1:
-                    pygame.draw.line(screen, (0, 0, 0), (x, 0), (x, self.s_h), int(1*zoom))
+                if self.mode_grille == 1 or fix:
+                    pygame.draw.line(screen, (0, 0, 0), (x, 0), (x, self.s_h), zoom)
                 for y in range(self.s_h//2+int(self.y_slide), -1, int(-(self.cell_size+1)*zoom)):
-                    if self.mode_grille == 1:
-                        pygame.draw.line(screen, (0, 0, 0), (0, y), (self.s_w, y), int(1*zoom))
-                    elif self.mode_grille == 2:
-                        pygame.draw.circle(screen, (0, 0, 0), (x, y), int(1*zoom))
+                    if self.mode_grille == 1 or fix:
+                        pygame.draw.line(screen, (0, 0, 0), (0, y), (self.s_w, y), zoom)
+                    elif self.mode_grille == 2 and not fix:
+                        pygame.draw.circle(screen, (0, 0, 0), (x, y), zoom)
                 for y in range(self.s_h//2+int(self.y_slide), self.s_h+1, int((self.cell_size+1)*zoom)):
-                    if self.mode_grille == 1:
-                        pygame.draw.line(screen, (0, 0, 0), (0, y), (self.s_w, y), int(1*zoom))
-                    elif self.mode_grille == 2:
-                        pygame.draw.circle(screen, (0, 0, 0), (x, y), int(1*zoom))
+                    if self.mode_grille == 1 or fix:
+                        pygame.draw.line(screen, (0, 0, 0), (0, y), (self.s_w, y), zoom)
+                    elif self.mode_grille == 2 and not fix:
+                        pygame.draw.circle(screen, (0, 0, 0), (x, y), zoom)
             for x in range(self.s_w//2+int(self.x_slide), self.s_w+1, int((self.cell_size+1)*zoom)):
-                if self.mode_grille == 1:
-                    pygame.draw.line(screen, (0, 0, 0), (x, 0), (x, self.s_h), int(1*zoom))
+                if self.mode_grille == 1 or fix:
+                    pygame.draw.line(screen, (0, 0, 0), (x, 0), (x, self.s_h), zoom)
                 for y in range(self.s_h//2+int(self.y_slide), -1, int(-(self.cell_size+1)*zoom)):
-                    if self.mode_grille == 1:
-                        pygame.draw.line(screen, (0, 0, 0), (0, y), (self.s_w, y), int(1*zoom))
-                    elif self.mode_grille == 2:
-                        pygame.draw.circle(screen, (0, 0, 0), (x, y), int(1*zoom))
+                    if self.mode_grille == 1 or fix:
+                        pygame.draw.line(screen, (0, 0, 0), (0, y), (self.s_w, y), zoom)
+                    elif self.mode_grille == 2 and not fix:
+                        pygame.draw.circle(screen, (0, 0, 0), (x, y), zoom)
                 for y in range(self.s_h//2+int(self.y_slide), self.s_h+1, int((self.cell_size+1)*zoom)):
-                    if self.mode_grille == 1:
-                        pygame.draw.line(screen, (0, 0, 0), (0, y), (self.s_w, y), int(1*zoom))
-                    elif self.mode_grille == 2:
-                        pygame.draw.circle(screen, (0, 0, 0), (x, y), int(1*zoom))
+                    if self.mode_grille == 1 or fix:
+                        pygame.draw.line(screen, (0, 0, 0), (0, y), (self.s_w, y), zoom)
+                    elif self.mode_grille == 2 and not fix:
+                        pygame.draw.circle(screen, (0, 0, 0), (x, y), zoom)
         elif self.mode_grille == 3 or self.mode_grille == 4:
             for x in range(self.s_w//2+int(self.x_slide), -1, int(-(self.cell_size+1)*zoom)*5):
                 if self.mode_grille == 3:
-                    pygame.draw.line(screen, (0, 0, 0), (x, 0), (x, self.s_h), int(1*zoom))
+                    pygame.draw.line(screen, (0, 0, 0), (x, 0), (x, self.s_h), zoom)
                 for y in range(self.s_h//2+int(self.y_slide), -1, int(-(self.cell_size+1)*zoom)*5):
                     if self.mode_grille == 3:
-                        pygame.draw.line(screen, (0, 0, 0), (0, y), (self.s_w, y), int(1*zoom))
+                        pygame.draw.line(screen, (0, 0, 0), (0, y), (self.s_w, y), zoom)
                     elif self.mode_grille == 4:
-                        pygame.draw.circle(screen, (0, 0, 0), (x, y), int(1*zoom))
+                        pygame.draw.circle(screen, (0, 0, 0), (x, y), zoom)
                 for y in range(self.s_h//2+int(self.y_slide), self.s_h+1, int((self.cell_size+1)*zoom)*5):
                     if self.mode_grille == 3:
-                        pygame.draw.line(screen, (0, 0, 0), (0, y), (self.s_w, y), int(1*zoom))
+                        pygame.draw.line(screen, (0, 0, 0), (0, y), (self.s_w, y), zoom)
                     elif self.mode_grille == 4:
-                        pygame.draw.circle(screen, (0, 0, 0), (x, y), int(1*zoom))
+                        pygame.draw.circle(screen, (0, 0, 0), (x, y), zoom)
             for x in range(self.s_w//2+int(self.x_slide), self.s_w+1, int((self.cell_size+1)*zoom)*5):
                 if self.mode_grille == 3:
-                    pygame.draw.line(screen, (0, 0, 0), (x, 0), (x, self.s_h), int(1*zoom))
+                    pygame.draw.line(screen, (0, 0, 0), (x, 0), (x, self.s_h), zoom)
                 for y in range(self.s_h//2+int(self.y_slide), -1, int(-(self.cell_size+1)*zoom)*5):
                     if self.mode_grille == 3:
-                        pygame.draw.line(screen, (0, 0, 0), (0, y), (self.s_w, y), int(1*zoom))
+                        pygame.draw.line(screen, (0, 0, 0), (0, y), (self.s_w, y), zoom)
                     elif self.mode_grille == 4:
-                        pygame.draw.circle(screen, (0, 0, 0), (x, y), int(1*zoom))
+                        pygame.draw.circle(screen, (0, 0, 0), (x, y), zoom)
                 for y in range(self.s_h//2+int(self.y_slide), self.s_h+1, int((self.cell_size+1)*zoom)*5):
                     if self.mode_grille == 3:
-                        pygame.draw.line(screen, (0, 0, 0), (0, y), (self.s_w, y), int(1*zoom))
+                        pygame.draw.line(screen, (0, 0, 0), (0, y), (self.s_w, y), zoom)
                     elif self.mode_grille == 4:
-                        pygame.draw.circle(screen, (0, 0, 0), (x, y), int(1*zoom))
+                        pygame.draw.circle(screen, (0, 0, 0), (x, y), zoom)
 
         # to show numbers
         if self.mode_numbers == 1:
@@ -250,8 +255,12 @@ class Game:
         for i in range(self.map_size[0]):
             self.map.append(['0'])
 
+    def reset_map(self):
+        self.iteration = 0
+        self.play_pause_button_state = 0
+        self.empty_map()
+
     def save_map(self, filename):
-        # if not os.path.exists(filename + ".txt"):  # necessary ?
         with open("./"+filename+".txt", 'w') as f:
             for row in range(self.map_size[0]):
                 if '1' in self.map[row]:
@@ -271,6 +280,21 @@ class Game:
                 while line != "":
                     self.map.append(line.strip('\n').split(';'))
                     line = f.readline()
+
+    def modify_map(self, old_coords_topleft, new_coords_topleft, old_map_size, actual_map_size, new_map_size):
+        # old like default/ initially prévu
+        print('kk(')
+
+        if self.iteration == 0:
+            self.initial_map = []
+            for i in range(self.map_size[0]):
+                if len(self.map[i]) != 1:
+                    self.initial_map.append(['0']*self.map_size[1])
+                    for j in range(self.map_size[1]):
+                        self.initial_map[i][j] = self.map[i][j]
+                else:
+                    self.initial_map.append(['0'])
+
 
     def count_alive_total(self):
         total = 0
@@ -322,17 +346,17 @@ class Game:
             self.prev_map = []
             for i in range(self.map_size[0]):
                 self.prev_map.append(['0']*self.map_size[1])
-                if len(new_map[i]) != 1:
+                if len(self.map[i]) != 1:
                     for j in range(self.map_size[1]):
-                        self.prev_map[i][j] = new_map[i][j]
+                        self.prev_map[i][j] = self.map[i][j]
 
         if self.iteration == 0:
             self.initial_map = []
             for i in range(self.map_size[0]):
-                if len(new_map[i]) != 1:
+                if len(self.map[i]) != 1:
                     self.initial_map.append(['0']*self.map_size[1])
                     for j in range(self.map_size[1]):
-                        self.initial_map[i][j] = new_map[i][j]
+                        self.initial_map[i][j] = self.map[i][j]
                 else:
                     self.initial_map.append(['0'])
 
