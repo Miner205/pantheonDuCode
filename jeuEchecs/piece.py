@@ -86,40 +86,40 @@ class Piece:
                     allowed_mouvements_matrix[row][col]=1
 
             elif self.name == "king":
-                if row-1>=0 and -2!=self.game.board_matrix[row-1][col]!=1:
+                if row-1>=0 and (0==self.game.board_matrix[row-1][col] or self.game.board_matrix[row-1][col]==-1):
                     allowed_mouvements_matrix[row-1][col] = 1
-                if row+1<8 and -2!=self.game.board_matrix[row+1][col]!=1:
+                if row+1<8 and (0==self.game.board_matrix[row+1][col] or self.game.board_matrix[row+1][col]==-1):
                     allowed_mouvements_matrix[row+1][col] = 1
-                if col-1>=0 and -2!=self.game.board_matrix[row][col-1]!=1:
+                if col-1>=0 and (0==self.game.board_matrix[row][col-1] or self.game.board_matrix[row][col-1]==-1):
                     allowed_mouvements_matrix[row][col-1] = 1
-                if col+1<8 and -2!=self.game.board_matrix[row][col+1]!=1:
+                if col+1<8 and (0==self.game.board_matrix[row][col+1] or self.game.board_matrix[row][col+1]==-1):
                     allowed_mouvements_matrix[row][col+1] = 1
-                if row-1>=0 and col-1>=0 and -2!=self.game.board_matrix[row-1][col-1]!=1:
+                if row-1>=0 and col-1>=0 and (0==self.game.board_matrix[row-1][col-1] or self.game.board_matrix[row-1][col-1]==-1):
                     allowed_mouvements_matrix[row-1][col-1] = 1
-                if row+1<8 and col+1<8 and -2!=self.game.board_matrix[row+1][col+1]!=1:
+                if row+1<8 and col+1<8 and (0==self.game.board_matrix[row+1][col+1] or self.game.board_matrix[row+1][col+1]==-1):
                     allowed_mouvements_matrix[row+1][col+1] = 1
-                if row+1<8 and col-1>=0 and -2!=self.game.board_matrix[row+1][col-1]!=1:
+                if row+1<8 and col-1>=0 and (0==self.game.board_matrix[row+1][col-1] or self.game.board_matrix[row+1][col-1]==-1):
                     allowed_mouvements_matrix[row+1][col-1] = 1
-                if row-1>=0 and col+1<8 and -2!=self.game.board_matrix[row-1][col+1]!=1:
+                if row-1>=0 and col+1<8 and (0==self.game.board_matrix[row-1][col+1] or self.game.board_matrix[row-1][col+1]==-1):
                     allowed_mouvements_matrix[row-1][col+1] = 1
 
             elif self.name == "knight":
-                if row-2>=0 and col-1>=0 and -2!=self.game.board_matrix[row-2][col-1]!=1:
+                if row-2>=0 and col-1>=0 and (0==self.game.board_matrix[row-2][col-1] or self.game.board_matrix[row-2][col-1]==-1):
                     allowed_mouvements_matrix[row-2][col-1] = 1
-                if row-2>=0 and col+1<8 and -2!=self.game.board_matrix[row-2][col+1]!=1:
+                if row-2>=0 and col+1<8 and (0==self.game.board_matrix[row-2][col+1] or self.game.board_matrix[row-2][col+1]==-1):
                     allowed_mouvements_matrix[row-2][col+1] = 1
-                if row+2<8 and col-1>=0 and -2!=self.game.board_matrix[row+2][col-1]!=1:
+                if row+2<8 and col-1>=0 and (0==self.game.board_matrix[row+2][col-1] or self.game.board_matrix[row+2][col-1]==-1):
                     allowed_mouvements_matrix[row+2][col-1] = 1
-                if row+2<8 and col+1<8 and -2!=self.game.board_matrix[row+2][col+1]!=1:
+                if row+2<8 and col+1<8 and (0==self.game.board_matrix[row+2][col+1] or self.game.board_matrix[row+2][col+1]==-1):
                     allowed_mouvements_matrix[row+2][col+1] = 1
 
-                if row-1>=0 and col-2>=0 and -2!=self.game.board_matrix[row-1][col-2]!=1:
+                if row-1>=0 and col-2>=0 and (0==self.game.board_matrix[row-1][col-2] or self.game.board_matrix[row-1][col-2]==-1):
                     allowed_mouvements_matrix[row-1][col-2] = 1
-                if row+1<8 and col-2>=0 and -2!=self.game.board_matrix[row+1][col-2]!=1:
+                if row+1<8 and col-2>=0 and (0==self.game.board_matrix[row+1][col-2] or self.game.board_matrix[row+1][col-2]==-1):
                     allowed_mouvements_matrix[row+1][col-2] = 1
-                if row-1>=0 and col+2<8 and -2!=self.game.board_matrix[row-1][col+2]!=1:
+                if row-1>=0 and col+2<8 and (0==self.game.board_matrix[row-1][col+2] or self.game.board_matrix[row-1][col+2]==-1):
                     allowed_mouvements_matrix[row-1][col+2] = 1
-                if row+1<8 and col+2<8 and -2!=self.game.board_matrix[row+1][col+2]!=1:
+                if row+1<8 and col+2<8 and (0==self.game.board_matrix[row+1][col+2] or self.game.board_matrix[row+1][col+2]==-1):
                     allowed_mouvements_matrix[row+1][col+2] = 1
 
             elif self.name == "pawn":
@@ -157,7 +157,7 @@ class Piece:
             row = event.pos[1] // (self.screen_size[1] // 8)
             col = event.pos[0] // (self.screen_size[0] // 8)
 
-            if self.selected and not self.rect.collidepoint(event.pos) and self.get_allowed_mouvements_matrix()[row][col]:
+            if self.selected and not self.rect.collidepoint(event.pos) and self.get_allowed_mouvements_matrix()[row][col] and ((not self.game.king_is_check) or self.name == "king"):
 
                 # move & capture sound
                 if self.game.board_matrix[row][col] == 0:
@@ -195,3 +195,135 @@ class Piece:
     def print(self, screen):
         # suppose that self.state==1
         screen.blit(self.image, self.rect)
+
+    def to_get_all_enemies_mouvements_matrix(self):  # for king check
+        # suppose that self.state==1
+        matrix = [[0 for _ in range(8)] for _ in range(8)]
+        row = self.pos[0]
+        col = self.pos[1]
+        if self.name == "rook" or self.name == "queen":
+            row-=1
+            while row >= 0 and (0==self.game.board_matrix[row][col] or self.game.board_matrix[row][col]==2):  # consider the king(2) 'transparent'/ignore it
+                matrix[row][col]=1
+                row-=1
+            if row >= 0 and self.game.board_matrix[row][col]==1:
+                matrix[row][col]=1
+            row = self.pos[0]+1
+            while row < 8 and (0==self.game.board_matrix[row][col] or self.game.board_matrix[row][col]==2):
+                matrix[row][col]=1
+                row+=1
+            if row < 8 and self.game.board_matrix[row][col]==1:
+                matrix[row][col]=1
+            row = self.pos[0]
+            col-=1
+            while col >= 0 and (0==self.game.board_matrix[row][col] or self.game.board_matrix[row][col]==2):
+                matrix[row][col]=1
+                col-=1
+            if col >= 0 and self.game.board_matrix[row][col]==1:
+                matrix[row][col]=1
+            col = self.pos[1]+1
+            while col < 8 and (0==self.game.board_matrix[row][col] or self.game.board_matrix[row][col]==2):
+                matrix[row][col]=1
+                col+=1
+            if col < 8 and self.game.board_matrix[row][col]==1:
+                matrix[row][col]=1
+
+        if self.name != "rook":
+            if self.name == "bishop" or self.name == "queen":
+                row = self.pos[0]-1
+                col = self.pos[1]-1
+                while row >= 0 and col >= 0 and (0==self.game.board_matrix[row][col] or self.game.board_matrix[row][col]==2):
+                    matrix[row][col]=1
+                    row-=1
+                    col-=1
+                if row >= 0 and col >= 0 and self.game.board_matrix[row][col]==1:
+                    matrix[row][col]=1
+                row = self.pos[0]+1
+                col = self.pos[1]+1
+                while row < 8 and col < 8 and (0==self.game.board_matrix[row][col] or self.game.board_matrix[row][col]==2):
+                    matrix[row][col]=1
+                    row+=1
+                    col+=1
+                if row < 8 and col < 8 and self.game.board_matrix[row][col]==1:
+                    matrix[row][col]=1
+                row = self.pos[0]+1
+                col = self.pos[1]-1
+                while col >= 0 and row < 8 and (0==self.game.board_matrix[row][col] or self.game.board_matrix[row][col]==2):
+                    matrix[row][col]=1
+                    col-=1
+                    row+=1
+                if col >= 0 and row < 8 and self.game.board_matrix[row][col]==1:
+                    matrix[row][col]=1
+                col = self.pos[1]+1
+                row = self.pos[0]-1
+                while col < 8 and row >= 0 and (0==self.game.board_matrix[row][col] or self.game.board_matrix[row][col]==2):
+                    matrix[row][col]=1
+                    col+=1
+                    row-=1
+                if col < 8 and row >= 0 and self.game.board_matrix[row][col]==1:
+                    matrix[row][col]=1
+
+            elif self.name == "king":
+                if row-1>=0 and self.game.board_matrix[row-1][col]>=0:
+                    matrix[row-1][col] = 1
+                if row+1<8 and self.game.board_matrix[row+1][col]>=0:
+                    matrix[row+1][col] = 1
+                if col-1>=0 and self.game.board_matrix[row][col-1]>=0:
+                    matrix[row][col-1] = 1
+                if col+1<8 and self.game.board_matrix[row][col+1]>=0:
+                    matrix[row][col+1] = 1
+                if row-1>=0 and col-1>=0 and self.game.board_matrix[row-1][col-1]>=0:
+                    matrix[row-1][col-1] = 1
+                if row+1<8 and col+1<8 and self.game.board_matrix[row+1][col+1]>=0:
+                    matrix[row+1][col+1] = 1
+                if row+1<8 and col-1>=0 and self.game.board_matrix[row+1][col-1]>=0:
+                    matrix[row+1][col-1] = 1
+                if row-1>=0 and col+1<8 and self.game.board_matrix[row-1][col+1]>=0:
+                    matrix[row-1][col+1] = 1
+
+            elif self.name == "knight":
+                if row-2>=0 and col-1>=0 and self.game.board_matrix[row-2][col-1]>=0:
+                    matrix[row-2][col-1] = 1
+                if row-2>=0 and col+1<8 and self.game.board_matrix[row-2][col+1]>=0:
+                    matrix[row-2][col+1] = 1
+                if row+2<8 and col-1>=0 and self.game.board_matrix[row+2][col-1]>=0:
+                    matrix[row+2][col-1] = 1
+                if row+2<8 and col+1<8 and self.game.board_matrix[row+2][col+1]>=0:
+                    matrix[row+2][col+1] = 1
+
+                if row-1>=0 and col-2>=0 and self.game.board_matrix[row-1][col-2]>=0:
+                    matrix[row-1][col-2] = 1
+                if row+1<8 and col-2>=0 and self.game.board_matrix[row+1][col-2]>=0:
+                    matrix[row+1][col-2] = 1
+                if row-1>=0 and col+2<8 and self.game.board_matrix[row-1][col+2]>=0:
+                    matrix[row-1][col+2] = 1
+                if row+1<8 and col+2<8 and self.game.board_matrix[row+1][col+2]>=0:
+                    matrix[row+1][col+2] = 1
+
+            elif self.name == "pawn":
+                if self.color == "w":
+                    '''if self.game.board_matrix[row-1][col]==0:  # row-1>=0 and
+                        matrix[row-1][col] = 1
+                    if self.have_ever_moved == 0 and self.game.board_matrix[row-1][col]==0 and self.game.board_matrix[row-2][col]==0:
+                        matrix[row-2][col] = 1'''
+                    if col-1>=0 and self.game.board_matrix[row-1][col-1]>0:
+                        matrix[row-1][col-1] = 1
+                    if col+1<8 and self.game.board_matrix[row-1][col+1]>0:
+                        matrix[row-1][col+1] = 1
+                else:
+                    '''if self.game.board_matrix[row+1][col]==0:
+                        matrix[row+1][col] = 1
+                    if self.have_ever_moved == 0 and self.game.board_matrix[row+1][col]==0 and self.game.board_matrix[row+2][col]==0:
+                        matrix[row+2][col] = 1'''
+                    if col-1>=0 and self.game.board_matrix[row+1][col-1]>0:
+                        matrix[row+1][col-1] = 1
+                    if col+1<8 and self.game.board_matrix[row+1][col+1]>0:
+                        matrix[row+1][col+1] = 1
+
+            else:
+                print("impossible name error ! ;;; to get all enemies mouvement matrix")
+
+        for i in range(8):
+            for j in range(8):
+                if matrix[i][j]:
+                    self.game.all_enemies_mouvements_matrix[i][j] = matrix[i][j]

@@ -15,10 +15,11 @@ https://poc.onepantheon.fr/html/defi.html
 
 WIP ; only the local multi is implemented currently
 
-fonctionnalités importantes manquantes : king echec & echec&mat ; roque ; en passant ; les nulles
+fonctionnalités importantes manquantes : king echec & echec&mat ; roque ; en passant ; les nulles ( ; don't forgot case en passant check & checkmat)
 other things to do :
 -online multi & local solo
 -option_menu.py
+-support screen pygame.RESIZABLE
 -ptet d'autres trucs
 
 

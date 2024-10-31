@@ -40,7 +40,23 @@ class Game:
         self.pawn_promotion_is_occurring = None
         self.pawn_promotion_popup = None
 
+        self.all_enemies_mouvements_matrix = [[0 for _ in range(8)] for _ in range(8)]
+        self.king_is_check = 0
+
         self.menu_button = Button(screen_w-5-27, 5, 27, 27)
+
+    def verify_king_check(self):
+        self.all_enemies_mouvements_matrix = [[0 for _ in range(8)] for _ in range(8)]
+        for piece in self.chess_board:
+            if piece.state and piece.color != self.turn:
+                piece.to_get_all_enemies_mouvements_matrix()
+        if self.chess_board[4].color == self.turn:
+            self.king_is_check = self.all_enemies_mouvements_matrix[self.chess_board[4].pos[0]][self.chess_board[4].pos[1]]
+        elif self.chess_board[28].color == self.turn:
+            self.king_is_check = self.all_enemies_mouvements_matrix[self.chess_board[28].pos[0]][self.chess_board[28].pos[1]]
+        if self.king_is_check:
+            sound_move_check = pygame.mixer.Sound("./sounds/move-check.mp3")
+            sound_move_check.play()
 
     def update(self, event, zoom):
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -48,7 +64,6 @@ class Game:
                 for piece in self.chess_board:
                     if piece.state and piece.color == self.turn:
                         piece.update(event)
-                self.update_board_representation_matrix()
             if self.pawn_promotion_is_occurring is not None:
                 if self.pawn_promotion_popup is None:
                     self.pawn_promotion_popup = PawnPromotion(self.pawn_promotion_is_occurring.rect.topleft[0], self.pawn_promotion_is_occurring.rect.topleft[1],
@@ -61,8 +76,9 @@ class Game:
                         self.pawn_promotion_is_occurring.image = pygame.image.load("./images/"+temp+"_"+self.pawn_promotion_is_occurring.color+".png")
                         self.pawn_promotion_popup = None
                         self.pawn_promotion_is_occurring = None
-                        self.update_board_representation_matrix()
-
+            if self.pawn_promotion_is_occurring is None:
+                self.update_board_representation_matrix()
+                self.verify_king_check()
 
     def print(self, screen, zoom):
         k = 1
@@ -115,6 +131,9 @@ class Game:
         if self.pawn_promotion_is_occurring is not None:
             pygame.draw.rect(screen, "red", (5, 35+20, 20, 20))
             pygame.draw.rect(screen, "black", (5, 35+20, 20, 20), 3)
+        if self.king_is_check:
+            pygame.draw.rect(screen, "blue", (5+20, 35, 20, 20))
+            pygame.draw.rect(screen, "black", (5+20, 35, 20, 20), 3)
 
     def reset_chess_board(self):
         for piece in self.chess_board:
@@ -148,7 +167,10 @@ class Game:
             if piece.state:
                 if self.turn == "w":
                     if piece.color == "w":
-                        self.board_matrix[piece.pos[0]][piece.pos[1]] = 1  # 1 like allies & -1 like enemies
+                        if piece.name != "king":
+                            self.board_matrix[piece.pos[0]][piece.pos[1]] = 1  # 1 like allies & -1 like enemies
+                        else:
+                            self.board_matrix[piece.pos[0]][piece.pos[1]] = 2
                     else:
                         if piece.name != "king":
                             self.board_matrix[piece.pos[0]][piece.pos[1]] = -1
@@ -156,7 +178,10 @@ class Game:
                             self.board_matrix[piece.pos[0]][piece.pos[1]] = -2
                 else:
                     if piece.color == "k":
-                        self.board_matrix[piece.pos[0]][piece.pos[1]] = 1
+                        if piece.name != "king":
+                            self.board_matrix[piece.pos[0]][piece.pos[1]] = 1
+                        else:
+                            self.board_matrix[piece.pos[0]][piece.pos[1]] = 2
                     else:
                         if piece.name != "king":
                             self.board_matrix[piece.pos[0]][piece.pos[1]] = -1
